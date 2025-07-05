@@ -69,7 +69,7 @@ export const Home = () => {
 				{/* contenedor 2 */}
 				<div className="text-center my-5">
 					<h2 >Sube tus Imágenes Aéreas</h2>
-					<p classname = "mx-4">
+					<p className = "mx-4">
 						Obtén análisis instantáneos impulsados por IA sobre la salud de tus cultivos y las condiciones de crecimiento
 					</p>
 				</div>
@@ -97,15 +97,15 @@ export const Home = () => {
 					<div className="container">
 						
 
-						<div className="row g-3">
-							<div className="col-12 text-center mt-5 ">
+						<div className="row ">
+							<div className="col-12 text-center my-5">
 								<h1>¿Por qué elegir AgriVision AI?</h1>
 								<p>
 									Nuestra plataforma combina tecnología IA de vanguardia con experiencia agrícola para ayudarte a tomar decisiones basadas en datos.
 								</p>
 							</div>
 
-							<div className="col-6 text-center mt-5 border rounded-4 shadow">
+							<div className="col-6 text-center p-5 border rounded-4 shadow">
 								<i>imagen</i>
 								<h3>Análisis Multi-Fuente</h3>
 								<p>
@@ -113,7 +113,7 @@ export const Home = () => {
 								</p>
 							</div>
 
-							<div className="col-6 text-center mt-5 border rounded-4 shadow">
+							<div className="col-6 text-center p-5 border rounded-4 shadow">
 								<i>lupa</i>
 								<h3>IA Avanzada</h3>
 								<p>
@@ -121,7 +121,7 @@ export const Home = () => {
 								</p>
 							</div>
 
-							<div className="col-6 text-center mt-5 border rounded-4 shadow">
+							<div className="col-6 text-center p-5 border rounded-4 shadow">
 								<i>hoja</i>
 								<h3>Recomendaciones Precisas</h3>
 								<p>
@@ -129,7 +129,7 @@ export const Home = () => {
 								</p>
 							</div>
 
-							<div className="col-6 text-center mt-5 border rounded-4 shadow">
+							<div className="col-6 text-center p-5 border rounded-4 shadow">
 								<i>flecha tendencia</i>
 								<h3>Análisis de Tendencias</h3>
 								<p>
@@ -137,7 +137,7 @@ export const Home = () => {
 								</p>
 							</div>
 
-							<div className="col-6 text-center mt-5 border rounded-4 shadow">
+							<div className="col-6 text-center p-5 border rounded-4 shadow">
 								<i>escudo</i>
 								<h3>Detección Temprana</h3>
 								<p>
@@ -145,7 +145,7 @@ export const Home = () => {
 								</p>
 							</div>
 
-							<div className="col-6 text-center mt-5 border rounded-4 shadow">
+							<div className="col-6 text-center p-5 border rounded-4 shadow">
 								<i>rayo</i>
 								<h3>Resultados Instantáneos</h3>
 								<p>
@@ -153,7 +153,7 @@ export const Home = () => {
 								</p>
 							</div>
 
-							<div className="col-12 text-center mt-5 border rounded-4">
+							<div className="col-12 text-center p-5 border rounded-4">
 								<h1></h1>
 								<p>
 									Sube una imagen para ver el análisis detallado del cultivo
