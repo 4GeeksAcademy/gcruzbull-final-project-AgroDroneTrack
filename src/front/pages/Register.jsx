@@ -1,0 +1,306 @@
+import {useState} from "react"
+import useGlobalReducer from "../hooks/useGlobalReducer"
+import {Link, useNavigate} from "react-router-dom"
+
+const initialStateRegister = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    password: '',
+    // confirmPassword: '',
+    acceptTerms: false,
+}
+
+export const Register = () => {
+
+    const {distpach, store} = useGlobalReducer()
+
+    const navigate = useNavigate()
+
+    const [formData, setFormData] = useState(initialStateRegister);
+
+    const [showPassword, setShowPassword] = useState(false);
+    // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleInputChange = (event) => {
+        const { name, value, type, checked } = event.target;
+        setFormData((formData) => ({
+            ...formData,
+            [name]: type === 'checkbox' ? checked : value
+        }));
+    };
+
+    // const handleInputChange = (event) => {
+    //     const { name, value } = event.target;
+    //     setFormData((dataForm) => ({
+    //         ...dataForm,
+    //         [name]: value,
+    //     }));
+    // };
+
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+
+    //     if (formData.password !== formData.confirmPassword) {
+    //         alert('Las contraseñas no coinciden');
+    //         return;
+    //     }
+
+    //     if (!formData.acceptTerms) {
+    //         alert('Debes aceptar los términos y condiciones');
+    //         return;
+    //     }
+
+    //     setIsLoading(true);
+
+    //     setTimeout(() => {
+    //         setIsLoading(false);
+    //         alert('Registrado');
+    //     }, 2000);
+    // };
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+
+        const urlBackend = import.meta.env.VITE_BACKEND_URL;
+
+        const response = await fetch(`${urlBackend}/register`, {
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+
+        if (response.status === 201) {
+            setUser(initialStateUser)
+            setTimeout(() => {
+                navigate("/login")
+            }, 2000)
+        } else if (response.status === 400) {
+            alert("El usuario ya existe")
+        } else {
+            alert("Error al registrar el usuario, intente nuevamente")
+        }
+
+        // if (formData.password !== formData.confirmPassword) {
+        //     alert('Las contraseñas no coinciden');
+        //     return;
+        // }
+
+        if (!formData.acceptTerms) {
+            alert('Debes aceptar los términos y condiciones');
+            return;
+        }
+
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+            alert('Registrado');
+        }, 2000);
+    }
+
+    // const handleCheckboxChange = (event) => {
+    //     setFormData((formData) => ({
+    //         ...formData,
+    //         acceptTerms: event.target.checked,
+    //     }));
+    // };
+
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     setIsLoading(true);
+    // }
+
+    setTimeout(() => {
+        setIsLoading(false);
+        alert('');
+    }, 1000);
+
+    return (
+        <div className="min-vh-100 d-flex align-items-center bg-light">
+            <div className="container py-5">
+                <div className="row justify-content-center">
+                    <div className="col-md-6 col-lg-5">
+                        <div className="card shadow-sm border-0 rounded-4">
+                            <div className="card-body p-4">
+                                {/* Logo y título */}
+                                <div className="text-center mb-4">
+                                    <i className="fas fa-leaf fa-2x text-success mb-2"></i>
+                                    <h1 className="h4 fw-bold text-dark">AgriVision AI</h1>
+                                </div>
+
+                                <h2 className="h5 text-center text-dark mb-4">Crear Cuenta</h2>
+
+                                <form onSubmit={handleSubmit}>
+                                    {/* Nombre */}
+                                    <div className="mb-3">
+                                        <label htmlFor="firstName" className="form-label">Nombre</label>
+                                        <div className="input-group">
+                                            {/* <span className="input-group-text">
+                                                <i className="fas fa-envelope text-secondary"></i>
+                                            </span> */}
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="firstName"
+                                                placeholder="Ingresa tu nombre"
+                                                name="firstName"
+                                                value={formData.firstName}
+                                                onChange={handleInputChange}
+                                                // onChange={(event) => setName(event.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="invalid-feedback">
+                                            Este campo es obligatorio.
+                                        </div>
+                                    </div>
+
+                                    {/* Apellido */}
+                                    <div className="mb-3">
+                                        <label htmlFor="lastName" className="form-label">Apellido</label>
+                                        <div className="input-group">
+                                            {/* <span className="input-group-text">
+                                                <i className="fas fa-envelope text-secondary"></i>
+                                            </span> */}
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="lastName"
+                                                placeholder="Ingresa tu apellido"
+                                                name="lastName"
+                                                value={formData.lastName}
+                                                onChange={handleInputChange}
+                                                // onChange={(event) => setLastName(event.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="invalid-feedback">
+                                            Este campo es obligatorio.
+                                        </div>
+                                    </div>
+
+                                    {/* Teléfono */}
+                                    <div className="mb-3">
+                                        <label htmlFor="phone" className="form-label">Teléfono</label>
+                                        <div className="input-group">
+                                            {/* <span className="input-group-text">
+                                                <i className="fas fa-envelope text-secondary"></i>
+                                            </span> */}
+                                            <input
+                                                type="number"
+                                                className="form-control"
+                                                id="phone"
+                                                placeholder="56 9 1234 5678"
+                                                name="phoneNumber"
+                                                value={formData.phoneNumber}
+                                                onChange={handleInputChange}
+                                                // onChange={(event) => setPhoneNumber(event.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="invalid-feedback">
+                                            Este campo es obligatorio.
+                                        </div>
+                                    </div>
+
+                                    {/* Correo */}
+                                    <div className="mb-3">
+                                        <label htmlFor="email" className="form-label">Correo electrónico</label>
+                                        <div className="input-group">
+                                            <span className="input-group-text">
+                                                <i className="fas fa-envelope text-secondary"></i>
+                                            </span>
+                                            <input
+                                                type="email"
+                                                className="form-control"
+                                                id="email"
+                                                placeholder="Ingresa tu correo"
+                                                name="email"
+                                                value={formData.email}
+                                                onChange={handleInputChange}
+                                                // onChange={(event) => setEmail(event.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="invalid-feedback">
+                                            Este campo es obligatorio.
+                                        </div>
+                                    </div>
+
+                                    {/* Contraseña */}
+                                    <div className="mb-3">
+                                        <label htmlFor="password" className="form-label">Contraseña</label>
+                                        <div className="input-group">
+                                            <span className="input-group-text">
+                                                <i className="fas fa-lock text-secondary"></i>
+                                            </span>
+                                            <input
+                                                type={showPassword ? 'text' : 'password'}
+                                                className="form-control"
+                                                id="password"
+                                                placeholder="Ingresa tu contraseña"
+                                                name="password"
+                                                value={formData.password}
+                                                onChange={handleInputChange}
+                                                // onChange={(event) => setPassword(event.target.value)}
+                                                required
+                                            />
+                                            <button
+                                                type="button"
+                                                className="btn btn-outline-secondary"
+                                                onClick={() => setShowPassword(!showPassword)}
+                                                tabIndex={-1}
+                                            >
+                                                <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                                            </button>
+                                        </div>
+                                        <div className="invalid-feedback">
+                                            Este campo es obligatorio.
+                                        </div>
+                                    </div>
+
+                                    {/* Aceptación de términos */}
+                                    <div class="mb-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required/>
+                                            <label class="form-check-label" for="invalidCheck">
+                                                Acepto los términos y condiciones.
+                                            </label>
+                                            <div class="invalid-feedback">
+                                                You must agree before submitting.
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Botón */}
+                                    <button
+                                        type="submit"
+                                        className="btn btn-success w-100"
+                                        disabled={isLoading}
+                                    >
+                                        {isLoading ? 'Creando cuenta...' : 'Crear cuenta'}
+                                    </button>
+                                </form>
+
+                                <div className="text-center mt-4">
+                                    <p className="small text-muted">
+                                        ¿Ya tienes una cuenta?{' '}
+                                        <Link to="/login" className="text-success fw-semibold text-decoration-none">
+                                            Inicia sesión
+                                        </Link>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
