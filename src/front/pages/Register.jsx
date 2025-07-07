@@ -76,7 +76,7 @@ export const Register = () => {
         })
 
         if (response.status === 201) {
-            setUser(initialStateUser)
+            setUser(initialStateRegister)
             setTimeout(() => {
                 navigate("/login")
             }, 2000)
@@ -99,7 +99,7 @@ export const Register = () => {
         setIsLoading(true);
         setTimeout(() => {
             setIsLoading(false);
-            alert('Registrado');
+            alert('Registrar');
         }, 2000);
     }
 
@@ -114,11 +114,6 @@ export const Register = () => {
     //     event.preventDefault();
     //     setIsLoading(true);
     // }
-
-    setTimeout(() => {
-        setIsLoading(false);
-        alert('');
-    }, 1000);
 
     return (
         <div className="min-vh-100 d-flex align-items-center bg-light">

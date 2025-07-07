@@ -5,6 +5,8 @@ export const RecoveryPassword =() =>{
 
     const [email, setEmail] = useState("")
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleSubmit = async (event) => {
         event.preventDefault()
 
@@ -25,6 +27,12 @@ export const RecoveryPassword =() =>{
         if (response.ok) {
             alert("Link de restauración de contraseña enviado exitosamente")
         }
+
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+            alert('Recuperar contraseña');
+        }, 2000);
     };
 
     return (
