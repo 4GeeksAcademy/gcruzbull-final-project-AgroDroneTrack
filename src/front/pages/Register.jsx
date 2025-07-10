@@ -8,7 +8,6 @@ const initialStateRegister = {
     email: '',
     phoneNumber: '',
     password: '',
-    // confirmPassword: '',
     acceptTerms: false,
 }
 
@@ -21,7 +20,7 @@ export const Register = () => {
     const [formData, setFormData] = useState(initialStateRegister);
 
     const [showPassword, setShowPassword] = useState(false);
-    // const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    
     const [isLoading, setIsLoading] = useState(false);
 
     const handleInputChange = (event) => {
@@ -31,36 +30,6 @@ export const Register = () => {
             [name]: type === 'checkbox' ? checked : value
         }));
     };
-
-    // const handleInputChange = (event) => {
-    //     const { name, value } = event.target;
-    //     setFormData((dataForm) => ({
-    //         ...dataForm,
-    //         [name]: value,
-    //     }));
-    // };
-
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-
-    //     if (formData.password !== formData.confirmPassword) {
-    //         alert('Las contraseñas no coinciden');
-    //         return;
-    //     }
-
-    //     if (!formData.acceptTerms) {
-    //         alert('Debes aceptar los términos y condiciones');
-    //         return;
-    //     }
-
-    //     setIsLoading(true);
-
-    //     setTimeout(() => {
-    //         setIsLoading(false);
-    //         alert('Registrado');
-    //     }, 2000);
-    // };
-
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -86,11 +55,6 @@ export const Register = () => {
             alert("Error al registrar el usuario, intente nuevamente")
         }
 
-        // if (formData.password !== formData.confirmPassword) {
-        //     alert('Las contraseñas no coinciden');
-        //     return;
-        // }
-
         if (!formData.acceptTerms) {
             alert('Debes aceptar los términos y condiciones');
             return;
@@ -102,18 +66,6 @@ export const Register = () => {
             alert('Registrar');
         }, 2000);
     }
-
-    // const handleCheckboxChange = (event) => {
-    //     setFormData((formData) => ({
-    //         ...formData,
-    //         acceptTerms: event.target.checked,
-    //     }));
-    // };
-
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     setIsLoading(true);
-    // }
 
     return (
         <div className="min-vh-100 d-flex align-items-center bg-light">
@@ -135,9 +87,6 @@ export const Register = () => {
                                     <div className="mb-3">
                                         <label htmlFor="firstName" className="form-label">Nombre</label>
                                         <div className="input-group">
-                                            {/* <span className="input-group-text">
-                                                <i className="fas fa-envelope text-secondary"></i>
-                                            </span> */}
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -146,7 +95,6 @@ export const Register = () => {
                                                 name="firstName"
                                                 value={formData.firstName}
                                                 onChange={handleInputChange}
-                                                // onChange={(event) => setName(event.target.value)}
                                                 required
                                             />
                                         </div>
@@ -159,9 +107,6 @@ export const Register = () => {
                                     <div className="mb-3">
                                         <label htmlFor="lastName" className="form-label">Apellido</label>
                                         <div className="input-group">
-                                            {/* <span className="input-group-text">
-                                                <i className="fas fa-envelope text-secondary"></i>
-                                            </span> */}
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -170,7 +115,6 @@ export const Register = () => {
                                                 name="lastName"
                                                 value={formData.lastName}
                                                 onChange={handleInputChange}
-                                                // onChange={(event) => setLastName(event.target.value)}
                                                 required
                                             />
                                         </div>
@@ -183,9 +127,6 @@ export const Register = () => {
                                     <div className="mb-3">
                                         <label htmlFor="phone" className="form-label">Teléfono</label>
                                         <div className="input-group">
-                                            {/* <span className="input-group-text">
-                                                <i className="fas fa-envelope text-secondary"></i>
-                                            </span> */}
                                             <input
                                                 type="number"
                                                 className="form-control"
@@ -194,7 +135,6 @@ export const Register = () => {
                                                 name="phoneNumber"
                                                 value={formData.phoneNumber}
                                                 onChange={handleInputChange}
-                                                // onChange={(event) => setPhoneNumber(event.target.value)}
                                                 required
                                             />
                                         </div>
@@ -218,7 +158,6 @@ export const Register = () => {
                                                 name="email"
                                                 value={formData.email}
                                                 onChange={handleInputChange}
-                                                // onChange={(event) => setEmail(event.target.value)}
                                                 required
                                             />
                                         </div>
@@ -242,7 +181,6 @@ export const Register = () => {
                                                 name="password"
                                                 value={formData.password}
                                                 onChange={handleInputChange}
-                                                // onChange={(event) => setPassword(event.target.value)}
                                                 required
                                             />
                                             <button

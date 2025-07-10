@@ -1,5 +1,4 @@
 import React, { useEffect } from "react"
-import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
 
 export const Home = () => {
@@ -54,9 +53,9 @@ export const Home = () => {
 				</div>
 				{/* sub contenedor 4 */}
 				<div className="d-flex justify-content-center align-content-center mt-3">
-					<button className="rounded-3 me-4 btn btn-succes bg-success text-white fw-bold border border-success-subtle">
+					{/* <button className="rounded-3 me-4 btn btn-succes bg-success text-white fw-bold border border-success-subtle">
 						Comenzar Análisis Gratuito
-					</button>
+					</button> */}
 					<button className="d-flex align-content-center rounded-3 ms-4 btn btn-white border fw-bold border-secondary-subtle">
 						<i className="fs-4 my-2 py-auto px-2 fa-regular fa-square-caret-right"></i>
 						<p className="align-content-center my-1 pt-0 pe-1">Ver Demo</p>
@@ -73,8 +72,8 @@ export const Home = () => {
 						<p classNasme="m-auto pt-3 p-3">Detección de Plagas y Patógenos</p>
 					</button>
 					<button className="d-flex align-content-center rounded-5 btn btn-white fw-bold border border-secondary-subtle">
-						<i className="fs-4 m-auto p-3 fa-solid fa-droplet" style={{color: "#74C0FC"}}></i> 
-						<p className="m-auto p-3">Detección de Estrés Hídrico</p>
+						<i class="fs-4 m-auto p-3 fas fa-tree" style={{color: "#11a736"}}></i> 
+						<p className="m-auto p-3">Detección de Deficiencias Nutricionales</p>
 					</button>
 				</div>
 			</div>
@@ -120,8 +119,6 @@ export const Home = () => {
 
 				{/* contenedor 5 */}
 				<div className="mx-auto container" >
-					{/* <div className="container"> */}
-						{/* <div className="row d-grid gap-0 column-gap-3"> */}
 						<div className="d-grid gap-0 row-gap-3 column-gap-3" style={{ gridTemplateColumns: '1fr 1fr' }}>
 							<div className="col-sm-6 col-md-12 text-center p-5 border rounded-4 shadow">
 								<i className="fa-2x fa-regular fa-file-image" style={{color: "#0ca145"}}></i>
@@ -140,7 +137,7 @@ export const Home = () => {
 							</div>
 
 							<div className="col-sm-6 col-md-12 text-center p-5 border rounded-4 shadow">
-								<i className="fa-2x fa-solid fa-leaf" size="lg" style={{color: "#0fe656"}}></i>
+								<i className="fa-2x fa-solid fa-leaf" style={{color: "#0fe656"}}></i>
 								<h3>Recomendaciones Precisas</h3>
 								<p>
 									Obtén recomendaciones específicas y accionables para estrategias de riego, fertilización y manejo de plagas.
@@ -170,18 +167,7 @@ export const Home = () => {
 									Obtén análisis completos en segundos, no en días. Toma decisiones informadas al instante.
 								</p>
 							</div>
-
-							{/* <div className="col-12 text-center p-5 border rounded-4">
-								<h1></h1>
-								<p>
-									Sube una imagen para ver el análisis detallado del cultivo
-								</p>
-								<button>
-									Comenzar prueba gratis
-								</button>
-							</div> */}
 						</div>
-					{/* </div> */}
 				</div>
 			</div>
 		</div>

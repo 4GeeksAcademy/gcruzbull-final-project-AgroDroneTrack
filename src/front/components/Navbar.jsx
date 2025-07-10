@@ -7,8 +7,8 @@ export const Navbar = () => {
 			<div className="container">
 				{/* Contenedor 1: Logo */}
 				<Link to="/" className="navbar-brand d-flex align-items-center">
-					<div className="bg-success p-2 rounded me-2 d-flex align-items-center justify-content-center">
-						logo
+					<div className="p-2 bg-white me-2 d-flex align-items-center justify-content-center">
+						<i className="fas fa-leaf fa-2x text-success mb-2"></i>
 					</div>
 					<div className="d-flex align-items-baseline">
 						<span className="fs-4 fw-bold text-dark">AgriVision</span>
@@ -46,11 +46,6 @@ export const Navbar = () => {
 						<li className="nav-item mx-3">
 							<Link to="/about" className="nav-link text-dark fw-bold">
 								Nosotros
-							</Link>
-						</li>
-						<li className="nav-item mx-3">
-							<Link to="/contact" className="nav-link text-dark fw-bold">
-								Contacto
 							</Link>
 						</li>
 					</ul>
