@@ -34,7 +34,7 @@ export const router = createBrowserRouter(
         <Route path="/recovery-password" element={<RecoveryPassword />} />
         <Route path="/register" element={<Register />} />
         <Route path="/update-password" element={<UpdatePassword />} />
-        <Route path="/about" element={<AboutUs />} />
+        <Route path="/about-us" element={<AboutUs />} />
       </Route>
     )
 );

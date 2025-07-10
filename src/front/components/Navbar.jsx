@@ -44,7 +44,7 @@ export const Navbar = () => {
 							</Link>
 						</li>
 						<li className="nav-item mx-3">
-							<Link to="/about" className="nav-link text-dark fw-bold">
+							<Link to="/about-us" className="nav-link text-dark fw-bold">
 								Nosotros
 							</Link>
 						</li>
