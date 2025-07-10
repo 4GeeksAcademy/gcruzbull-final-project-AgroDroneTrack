@@ -205,3 +205,13 @@ def get_about_us():
             "history": "AgriVision AI nació con la visión..."
         }
     }), 200
+
+@api.route('/dashboard', methods=['GET'])
+def get_dashboard():
+    return jsonify({
+        # "message": {
+        #     "mission": "Mediante el uso de Inteligencia Artificial...",
+        #     "technology": "Nuestra plataforma utiliza algoritmos...",
+        #     "history": "AgriVision AI nació con la visión..."
+        # }
+    }), 200

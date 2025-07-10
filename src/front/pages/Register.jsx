@@ -8,6 +8,8 @@ const initialStateRegister = {
     email: '',
     phoneNumber: '',
     password: '',
+    farmName: '',
+    farmLocation: '',
     acceptTerms: false,
 }
 
@@ -134,6 +136,46 @@ export const Register = () => {
                                                 placeholder="56 9 1234 5678"
                                                 name="phoneNumber"
                                                 value={formData.phoneNumber}
+                                                onChange={handleInputChange}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="invalid-feedback">
+                                            Este campo es obligatorio.
+                                        </div>
+                                    </div>
+
+                                    {/* Nombre del Huerto */}
+                                    <div className="mb-3">
+                                        <label htmlFor="farmName" className="form-label">Nombre del Campo</label>
+                                        <div className="input-group">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="farmName"
+                                                placeholder="Nombre del campo"
+                                                name="farmName"
+                                                value={formData.farmName}
+                                                onChange={handleInputChange}
+                                                required
+                                            />
+                                        </div>
+                                        <div className="invalid-feedback">
+                                            Este campo es obligatorio.
+                                        </div>
+                                    </div>
+
+                                    {/* Ubicación del Huerto */}
+                                    <div className="mb-3">
+                                        <label htmlFor="farmLocation" className="form-label">Ubicación del Campo</label>
+                                        <div className="input-group">
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                id="farmLocation"
+                                                placeholder="Ubicación del campo"
+                                                name="farmLocation"
+                                                value={formData.farmLocation}
                                                 onChange={handleInputChange}
                                                 required
                                             />
