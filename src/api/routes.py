@@ -195,3 +195,13 @@ def update_password():
             return jsonify("Error"), 500
     else:
         return jsonify({"Error": "User not found"}), 404
+    
+@api.route('/about-us', methods=['GET'])
+def get_about_us():
+    return jsonify({
+        "message": {
+            "mission": "Mediante el uso de Inteligencia Artificial...",
+            "technology": "Nuestra plataforma utiliza algoritmos...",
+            "history": "AgriVision AI nació con la visión..."
+        }
+    }), 200
