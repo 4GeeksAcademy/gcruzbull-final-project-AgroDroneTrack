@@ -59,16 +59,6 @@ export const Login = () => {
         }
     }
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     setIsLoading(true);
-    // }
-
-    // setTimeout(() => {
-    //     setIsLoading(false);
-    //     alert('');
-    // }, 1000);
-
     return (
         <div className="min-vh-100 d-flex align-items-center bg-light">
             <div className="container py-5">

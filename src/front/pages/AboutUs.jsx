@@ -36,7 +36,7 @@ export const AboutUs = () => {
             <div className="container py-5">
                 <div className="mx-auto" style={{ maxWidth: "900px" }} >
                     <h1 className="text-center display-6 fw-bold text-dark mb-5">
-                        About AgriVision AI
+                        Sobre AgriVision AI
                     </h1>
                 </div>
 
@@ -60,7 +60,7 @@ export const AboutUs = () => {
                             </div>
                             <h3 className="fs-5 fw-semibold text-dark mb-3">Tecnología</h3>
                             <p className="text-secondary">
-                                Nuestra plataforma, mediante algoritmoz avanzados de machine learning y análisis de datos, analiza imágenes de drones, datos satelitales y fotografía terrestre para brindar insights
+                                Nuestra plataforma, mediante algoritmos avanzados de machine learning y análisis de datos, analiza imágenes de drones, datos satelitales y fotografía terrestre para brindar insights
                                 sobre el vigor del huerto, deficiencias nutricionales, y estado de salud y estrategias de control de plagas.
                             </p>
                         </div>
