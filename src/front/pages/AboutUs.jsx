@@ -33,8 +33,6 @@ export const AboutUs = () => {
 
     return (
         <div className="min-vh-100 bg-light">
-            <Navbar />
-
             <div className="container py-5">
                 <div className="mx-auto" style={{ maxWidth: "900px" }} >
                     <h1 className="text-center display-6 fw-bold text-dark mb-5">
