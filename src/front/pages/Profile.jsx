@@ -1,16 +1,16 @@
 import {useState} from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer"
 import {Link, useNavigate} from "react-router-dom"
+import { Register } from "./Register"
 
-const initialStateRegister = {
-    firstName: '',
-    lastName: '',
-    farm_name: '',
-    farm_location: '',
-    // email: '',
-    // phoneNumber: '',
-
-}
+// const initialStateRegister = {
+//     fullName: '',
+//     phoneNumber: '',
+//     email:'',
+//     farm_name: '',
+//     farm_location: '',
+//     avatar: '',
+// }
 
 export const Profile = () => {
 
@@ -18,9 +18,7 @@ export const Profile = () => {
 
     const navigate = useNavigate()
 
-    // const [profileData, setProfilemData] = useState(initialStateRegister);
-
-    const [showPassword, setShowPassword] = useState(false);
+    // const [clientData, setClientData] = useState(initialStateRegister);
     
     const [isLoading, setIsLoading] = useState(false);
 
@@ -36,22 +34,22 @@ export const Profile = () => {
             body: JSON.stringify(user)
         })
 
-        setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-            alert('Registrar');
-        }, 2000);
+        // setIsLoading(true);
+        // setTimeout(() => {
+        //     setIsLoading(false);
+        //     alert('');
+        // }, 2000);
     }
 
     return (
-        <div className="d-flex align-items-center bg-light">
+        
             <div className="container py-5">
                 <h2 className="mb-4">Perfil</h2>
                 <div className="row">
                     {/* Avatar */}
-                    {/* <div className="col-md-4">
-                        <img src="" alt="imagen de perfil" />
-                    </div> */}
+                    <div className="col-md-4">
+                        <img src={Register.avatar} alt="" />   
+                    </div>
 
                     {/* Datos personales */}
                     <div className="col-md-8">
@@ -60,17 +58,29 @@ export const Profile = () => {
                             <div className="card-body">
                                 <div>
                                     <p className="mb-1 fw-bold">Nombre:</p>
-                                    <p>nombre completo importar</p>
+                                    <p>
+                                        {Register.fullName}    
+                                    </p>
+                                </div>
+
+                                <div>
+                                    <p className="fw-bold mb-1">Email:</p>
+                                    <p>{Register.email}</p>
+                                </div>
+
+                                <div>
+                                    <p className="fw-bold mb-1">Teléfono:</p>
+                                    <p>{Register.phoneNumber}</p>
                                 </div>
                                         
                                 <div>
                                     <p className="fw-bold mb-1">Hubicación del huerto:</p>
-                                    <p>hubicación del huerto</p>
+                                    <p>{Register.farm_location}</p>
                                 </div>
 
                                 <div>
                                     <p className="fw-bold mb-1">Nombre del huerto:</p>
-                                    <p>nombre huerto importar</p>
+                                    <p>{Register.farm_name}</p>
                                 </div>
                             </div> 
                         </div>
@@ -104,7 +114,7 @@ export const Profile = () => {
                                 </button>
                             </li>
 
-                            <li className="my-2">
+                            {/* <li className="my-2">
                                 <button
                                     type="submit"
                                     className="btn btn-success "
@@ -114,7 +124,7 @@ export const Profile = () => {
                                         Registro Climatico
                                     </Link>
                                 </button>
-                            </li>
+                            </li> */}
 
                             <li className="my-2">
                                 <button
@@ -128,7 +138,7 @@ export const Profile = () => {
                                 </button>
                             </li>
 
-                            <li className="my-2">
+                            {/* <li className="my-2">
                                 <button
                                     type="submit"
                                     className="btn btn-success "
@@ -138,13 +148,12 @@ export const Profile = () => {
                                         Gráficos
                                     </Link>
                                 </button>
-                            </li>
-
+                            </li> */}
                         </ul>
 
                     </div>
                 </div>
             </div>
-        </div>
+       
     )
 };

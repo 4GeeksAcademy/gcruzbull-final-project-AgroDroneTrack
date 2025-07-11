@@ -47,69 +47,84 @@ export const Home = () => {
 				</div>
 				{/* sub contenedor 3 */}
 				<div className="p-4">
+					<p className = "fw-bold text-center pb-3">
+						Sube imágenes satelitales, aereas, o terrestres de tu campo y obtén un análisis y recomendaciones precisas optimizar tus operacion y disminuir tus costos.
+					</p>
 					<p className = "fw-bold text-center">
-						Sube imágenes de drones y obtén análisis instantáneos sobre la salud de tus cultivos, estrés hídrico, niveles de nutrientes y recomendaciones precisas para optimizar tu cosecha.
+						Análisis y recomendaciones precisas a nivel general y por cuartel sobre la salud, vigor, y estado nutricionals de tu huerto.
 					</p>
 				</div>
 				{/* sub contenedor 4 */}
-				<div className="d-flex justify-content-center align-content-center mt-3">
-					{/* <button className="rounded-3 me-4 btn btn-succes bg-success text-white fw-bold border border-success-subtle">
+				{/* <div className="d-flex justify-content-center align-content-center mt-3">
+					<button className="rounded-3 me-4 btn btn-succes bg-success text-white fw-bold border border-success-subtle">
 						Comenzar Análisis Gratuito
-					</button> */}
+					</button>
 					<button className="d-flex align-content-center rounded-3 ms-4 btn btn-white border fw-bold border-secondary-subtle">
 						<i className="fs-4 my-2 py-auto px-2 fa-regular fa-square-caret-right"></i>
 						<p className="align-content-center my-1 pt-0 pe-1">Ver Demo</p>
 					</button>
-				</div>
+				</div> */}
 				{/* sub contenedor 5 */}
-				<div className="d-flex justify-content-center align-items-center my-5">
-					<button className="d-flex align-content-center rounded-5 btn btn-white fw-bold border border-secondary-subtle">
-						<i className="fs-4 m-auto p-3 fa-sharp fa-solid fa-chart-simple" style={{color: "#1d5ecd"}}></i>
-						<p className="m-auto p-3">Análisis de Vigor</p>
-					</button>
-					<button className="d-flex align-content-center rounded-5 pt-2 mx-5 btn btn-white fw-bold border border-secondary-subtle">
-						<i className="fs-4 m-auto p-3 fa-solid fa-bug" style={{color: "#948800"}}></i>
-						<p classNasme="m-auto pt-3 p-3">Detección de Plagas y Patógenos</p>
-					</button>
-					<button className="d-flex align-content-center rounded-5 btn btn-white fw-bold border border-secondary-subtle">
-						<i class="fs-4 m-auto p-3 fas fa-tree" style={{color: "#11a736"}}></i> 
-						<p className="m-auto p-3">Detección de Deficiencias Nutricionales</p>
-					</button>
+				<div className="container">
+					<div className="row d-flex justify-content-center align-items-center row-gap-3 " style={{ gridTemplateColumns: '1fr 1fr' }}>
+						
+						<button className="col-md-12 col-lg-4 d-flex align-content-center rounded-5 me-1 btn btn-white fw-bold border border-secondary-subtle">
+							<i class="fa-2x p-3 fas fa-tree" style={{color: "#11a736"}}></i> 
+							<p className="m-auto">Detección de Deficiencias Nutricionales</p>
+						</button>
+
+						<button className="col-md-12 col-lg-4 d-flex align-content-center rounded-5 ms-1 btn btn-white fw-bold border border-secondary-subtle">
+							<i className="fa-2x p-3 fa-solid fa-bug" style={{color: "#948800"}}></i>
+							<p classNasme="m-auto">Detección de Plagas y Patógenos</p>
+						</button>
+
+						<button className="col-md-12 col-lg-4 d-flex align-content-center rounded-5 me-1 btn btn-white fw-bold border border-secondary-subtle">
+							<i className="fa-2x p-3 fa-solid fa-map-location-dot" style={{color: "#0b6e24ff"}}></i>
+							<p className="m-auto p-3">Análisis General y por Cuartel</p>
+						</button>
+
+						<button className="col-md-12 col-lg-4 d-flex align-content-center rounded-5 ms-1 btn btn-white fw-bold border border-secondary-subtle">
+							<i className="fa-2x p-3 fa-sharp fa-solid fa-chart-simple" style={{color: "#1d5ecd"}}></i>
+							<p className="m-auto p-3">Análisis de Vigor del Huerto</p>
+						</button>
+
+					</div>
 				</div>
 			</div>
 
 			<div className="mx-auto container">
 				<div className="row">
 					{/* contenedor 2 */}
-					<div className="col-12 text-center my-4">
-						<h2 >Sube tus Imágenes</h2>
-						<p className = "my-3 mx-4">
-							Obtén análisis instantáneos impulsados por IA sobre la salud de tus cultivos y las condiciones de crecimiento
-						</p>
-					</div>
-					{/* contenedor 3 */}
-					<div className="col-12 border rounded-4 shadow">
-						<div className="d-flex justify-content-start align-content-center">
-							<div className = "d-flex m-4">
-								<i class="fs-4 m-2 fa-solid fa-cloud-arrow-up" style={{color: "#3fabfd"}}></i>
-								<h5 className="m-2">Subir Imagen</h5>
-							</div>
+					<div className="col-md-12 col-lg-12 text-center my-4 py-5 border shadow rounded-4 ">
+						<div className="d-flex justify-content-center align-content-center">
+							<i className="p-4 pt-0 fa-2x fa-solid fa-file-invoice" style={{color: "#1f9bf9"}}></i>
+							<h3>Resultados del Análisis</h3>
 						</div>
-						<div className="border-dashed rounded-4 text-center p-5 m-4" >
-							Agregar imagen
-						</div>
-					</div>
-					{/* contenedor 4 */}
-					<div className="col-12 text-center my-5 py-5 border rounded-4 shadow">
-						<i class="m-2 fa-2x fa-solid fa-file-invoice" style={{color: "#1f9bf9"}}></i>
-						<h3>Resultados del Análisis</h3>
-						<p>
+						<p className="mb-3">
 							Sube una imagen para ver el análisis detallado del cultivo
 						</p>
+						<div>
+							<label htmlFor="btnUpload" className="form-label d-flex">
+								<i class="fs-4 m-2 fa-solid fa-cloud-arrow-up" style={{color: "#3fabfd"}}></i>
+								<h5 className="m-2">Subir Imagen</h5>
+							</label>
+                            <input
+                                type="file"
+                                className="form-control border-primary m-auto"
+                                id="btnUpload"
+                                placeholder="Cargar Imágen"
+                                name="uploadImage"
+											
+                                // onChange={handleInputChange}
+                                // value={}
+                            />
+						</div>
+						
 					</div>
+					
 				</div>
 
-				<div className="col-sm-12 col-md-12 text-center m-auto">
+				<div className="col-sm-12 col-md-12 text-center m-auto my-5">
 					<h1>¿Por qué elegir AgriVision AI?</h1>
 					<p>
 						Nuestra plataforma combina tecnología IA de vanguardia con experiencia agrícola para ayudarte a tomar decisiones basadas en datos.

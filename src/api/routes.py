@@ -35,20 +35,23 @@ CORS(api)
 
 # Manejo del Hash de la contraseña creando 2 funciones
 
-def create_password (password, salt):
+def create_password(password, salt):
     return generate_password_hash(f"{password}{salt}")
+
 
 def check_password(password_hash, password, salt):
     return check_password_hash(password_hash, f"{password}{salt}")
 
 # Acá termina el manejo del Hash.
 
+
 # Duración de vida del token
-expires_token = 20                                  
+expires_token = 20
 expires_delta = timedelta(minutes=expires_token)
 
+
 @api.route('/healt-check', methods=['GET'])
-def handle_hello():
+def handle_check():
 
     response_body = {
         "message": "Todo esta ok"
@@ -66,11 +69,12 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-@api.route('/signup', methods = ['POST'])
+
+@api.route('/signup', methods=['POST'])
 def add_user():
     data = request.json()
 
-    email = data.get("email", None) 
+    email = data.get("email", None)
     first_name = data.get("first_name", None)
     last_name = data.get("last_name", None)
     phone_number = data.get("phone_number", None)
@@ -78,9 +82,9 @@ def add_user():
 
     # Creación del usuario:
     if email is None or first_name is None or last_name is None or phone_number is None or password is None:
-        return jsonify ('email, first_name, last_name, phone_number, and password are mandatory'), 400
+        return jsonify('email, first_name, last_name, phone_number, and password are mandatory'), 400
     else:
-        user = User()           
+        user = User()
         User.email = email
         User.first_name = first_name
         User.last_name = last_name
@@ -93,20 +97,20 @@ def add_user():
 
     try:
         db.session.commit()
-        return jsonify("User created successfully"), 201 
+        return jsonify("User created successfully"), 201
     except Exception as error:
         db.session.rollback()
         return jsonify(f"Error: {error.args}"), 500
-        
-    
-@api.route('/login', methods = ['POST'])
+
+
+@api.route('/login', methods=['POST'])
 def handle_login():
     data = request.json
     email = data.get("email", None)
     password = data.get("password", None)
 
     if email is None or password is None:
-        return jsonify ('You must write the email and password'), 400
+        return jsonify('You must write the email and password'), 400
 
     # Validamos existencia del usuario
     else:
@@ -120,13 +124,14 @@ def handle_login():
                     "token": token}), 200
             else:
                 return jsonify("Credentials failure"), 400
-            
 
-@api.route("/users", methods=["GET"])     
-@jwt_required()                           
+
+@api.route("/users", methods=["GET"])
+@jwt_required()
 def get_all_users():
     users = User.query.all()
     return jsonify(list(map(lambda item: item.serialize(), users))), 200
+
 
 @api.route("/user-login", methods=["GET"])
 @jwt_required()
@@ -138,7 +143,7 @@ def one_user_login():
         return jsonify("User not found"), 404
     else:
         return jsonify(user.serialize())
-    
+
 
 @api.route("/reset-password", methods=["POST"])
 def reset_password_user():
@@ -149,7 +154,8 @@ def reset_password_user():
     if user is None:
         return jsonify("User not found"), 404
     else:
-        create_token = create_access_token(identity=body, expires_delta=expires_delta), 200
+        create_token = create_access_token(
+            identity=body, expires_delta=expires_delta), 200
 
     message_url = f""" 
     <a href="{os.getenv("FRONTEND_URL")}/reset-password?token={create_token}">Recuperar contraseña</a>
@@ -160,13 +166,14 @@ def reset_password_user():
         "message": message_url
     }
 
-    sended_email = send_email(data.get("subject"), data.get("to"), data.get("message"))
+    sended_email = send_email(
+        data.get("subject"), data.get("to"), data.get("message"))
 
     if sended_email:
         return jsonify("Message sent successfully"), 200
     else:
         return jsonify("Error"), 400
-            
+
 
 @api.route("/update-password", methods=["PUT"])
 @jwt_required()
@@ -181,7 +188,7 @@ def update_password():
 
         if not new_password:
             return jsonify({"Error": "The password was not updated"}), 400
-        
+
         password = create_password(new_password, salt)
 
         user.salt = salt
@@ -195,7 +202,8 @@ def update_password():
             return jsonify("Error"), 500
     else:
         return jsonify({"Error": "User not found"}), 404
-    
+
+
 @api.route('/about-us', methods=['GET'])
 def get_about_us():
     return jsonify({
@@ -205,6 +213,7 @@ def get_about_us():
             "history": "AgriVision AI nació con la visión..."
         }
     }), 200
+
 
 @api.route('/dashboard', methods=['GET'])
 def get_dashboard():

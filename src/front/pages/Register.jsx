@@ -3,13 +3,14 @@ import useGlobalReducer from "../hooks/useGlobalReducer"
 import {Link, useNavigate} from "react-router-dom"
 
 const initialStateRegister = {
-    firstName: '',
-    lastName: '',
+    fullName: '',
+    // lastName: '',
     email: '',
     phoneNumber: '',
     password: '',
     farmName: '',
     farmLocation: '',
+    avatar: '',
     acceptTerms: false,
 }
 
@@ -87,15 +88,15 @@ export const Register = () => {
                                 <form onSubmit={handleSubmit}>
                                     {/* Nombre */}
                                     <div className="mb-3">
-                                        <label htmlFor="firstName" className="form-label">Nombre</label>
+                                        <label htmlFor="fullName" className="form-label">Nombre Completo</label>
                                         <div className="input-group">
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                id="firstName"
+                                                id="fullName"
                                                 placeholder="Ingresa tu nombre"
-                                                name="firstName"
-                                                value={formData.firstName}
+                                                name="fullName"
+                                                value={formData.fullName}
                                                 onChange={handleInputChange}
                                                 required
                                             />
@@ -106,7 +107,7 @@ export const Register = () => {
                                     </div>
 
                                     {/* Apellido */}
-                                    <div className="mb-3">
+                                    {/* <div className="mb-3">
                                         <label htmlFor="lastName" className="form-label">Apellido</label>
                                         <div className="input-group">
                                             <input
@@ -123,7 +124,7 @@ export const Register = () => {
                                         <div className="invalid-feedback">
                                             Este campo es obligatorio.
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     {/* Teléfono */}
                                     <div className="mb-3">
@@ -183,6 +184,21 @@ export const Register = () => {
                                         <div className="invalid-feedback">
                                             Este campo es obligatorio.
                                         </div>
+                                    </div>
+
+                                    {/* Avatar */}
+
+                                    <div className="form-group mb-3 ">
+                                        <label htmlFor="btnAvatar" className="form-label">Imágen de Perfil:</label>
+                                        <input
+                                            type="file"
+                                            className="form-control border-0"
+                                            id="btnAvatar"
+                                            placeholder="Cargar Imágen"
+                                            name="avatar"
+                                            // onChange={handleInputChange}
+                                            // value={formData.avatar}
+                                        />
                                     </div>
 
                                     {/* Correo */}
