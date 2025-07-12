@@ -226,6 +226,15 @@ def put_dashboard():
     body = request.get_json()
     user = User.query.filter_by(user_id=user_id).one_or_none()
 
+    if user is None:
+        return jsonify(
+            {"Error": "User not found"}
+        ), 404
+    else:
+        return(
+            
+        )
+
     
     return jsonify({
         # "message": {
