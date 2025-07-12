@@ -3,13 +3,12 @@ import useGlobalReducer from "../hooks/useGlobalReducer"
 import {Link, useNavigate} from "react-router-dom"
 
 const initialStateRegister = {
-    fullName: '',
-    // lastName: '',
+    full_name: '',
     email: '',
-    phoneNumber: '',
+    phone_number: '',
     password: '',
-    farmName: '',
-    farmLocation: '',
+    farm_name: '',
+    farm_location: '',
     avatar: '',
     acceptTerms: false,
 }
@@ -96,7 +95,7 @@ export const Register = () => {
                                                 id="fullName"
                                                 placeholder="Ingresa tu nombre"
                                                 name="fullName"
-                                                value={formData.fullName}
+                                                value={formData.full_name}
                                                 onChange={handleInputChange}
                                                 required
                                             />
@@ -105,26 +104,6 @@ export const Register = () => {
                                             Este campo es obligatorio.
                                         </div>
                                     </div>
-
-                                    {/* Apellido */}
-                                    {/* <div className="mb-3">
-                                        <label htmlFor="lastName" className="form-label">Apellido</label>
-                                        <div className="input-group">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="lastName"
-                                                placeholder="Ingresa tu apellido"
-                                                name="lastName"
-                                                value={formData.lastName}
-                                                onChange={handleInputChange}
-                                                required
-                                            />
-                                        </div>
-                                        <div className="invalid-feedback">
-                                            Este campo es obligatorio.
-                                        </div>
-                                    </div> */}
 
                                     {/* Teléfono */}
                                     <div className="mb-3">
@@ -136,7 +115,7 @@ export const Register = () => {
                                                 id="phone"
                                                 placeholder="56 9 1234 5678"
                                                 name="phoneNumber"
-                                                value={formData.phoneNumber}
+                                                value={formData.phone_number}
                                                 onChange={handleInputChange}
                                                 required
                                             />
@@ -156,7 +135,7 @@ export const Register = () => {
                                                 id="farmName"
                                                 placeholder="Nombre del campo"
                                                 name="farmName"
-                                                value={formData.farmName}
+                                                value={formData.farm_name}
                                                 onChange={handleInputChange}
                                                 required
                                             />
@@ -176,7 +155,7 @@ export const Register = () => {
                                                 id="farmLocation"
                                                 placeholder="Ubicación del campo"
                                                 name="farmLocation"
-                                                value={formData.farmLocation}
+                                                value={formData.farm_location}
                                                 onChange={handleInputChange}
                                                 required
                                             />
