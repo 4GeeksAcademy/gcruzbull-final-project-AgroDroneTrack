@@ -94,7 +94,7 @@ export const Register = () => {
                                                 className="form-control"
                                                 id="fullName"
                                                 placeholder="Ingresa tu nombre"
-                                                name="fullName"
+                                                name="full_name"
                                                 value={formData.full_name}
                                                 onChange={handleInputChange}
                                                 required
@@ -114,7 +114,7 @@ export const Register = () => {
                                                 className="form-control"
                                                 id="phone"
                                                 placeholder="56 9 1234 5678"
-                                                name="phoneNumber"
+                                                name="phone_number"
                                                 value={formData.phone_number}
                                                 onChange={handleInputChange}
                                                 required
@@ -134,7 +134,7 @@ export const Register = () => {
                                                 className="form-control"
                                                 id="farmName"
                                                 placeholder="Nombre del campo"
-                                                name="farmName"
+                                                name="farm_name"
                                                 value={formData.farm_name}
                                                 onChange={handleInputChange}
                                                 required
@@ -154,7 +154,7 @@ export const Register = () => {
                                                 className="form-control"
                                                 id="farmLocation"
                                                 placeholder="Ubicación del campo"
-                                                name="farmLocation"
+                                                name="farm_location"
                                                 value={formData.farm_location}
                                                 onChange={handleInputChange}
                                                 required
