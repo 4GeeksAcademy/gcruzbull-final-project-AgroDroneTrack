@@ -68,14 +68,14 @@ def add_user():
     salt = data.get("salt", None) 
 
     # Creación del usuario:
-    if any(field is None for field in [full_name, email, phone_number, farm_location, farm_name, password]):
-        return jsonify('Fields full_name, email, phone_number, farm_location, farm_name, and password are mandatory'), 400
+    if any(field is None for field in [full_name, email, phone_number, password]):
+        return jsonify('Fields full_name, email, phone_number, and password are mandatory'), 400
     else:
         user = User()
         user.full_name = full_name
         user.email = email
-        user.farm_name = farm_name
-        user.farm_location = farm_location
+        # user.farm_name = farm_name
+        # user.farm_location = farm_location
         user.phone_number = phone_number
         user.avatar = avatar
         user.password = create_password(password)

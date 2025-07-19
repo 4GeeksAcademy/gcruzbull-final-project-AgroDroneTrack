@@ -7,8 +7,8 @@ const initialStateRegister = {
     email: '',
     phone_number: '',
     password: '',
-    farm_name: '',
-    farm_location: '',
+    // farm_name: '',
+    // farm_location: '',
     avatar: '',
     acceptTerms: false,
 }
@@ -19,7 +19,7 @@ export const Register = () => {
 
     const navigate = useNavigate()
 
-    const [formData, setFormData] = useState(initialStateRegister);
+    const [formData, setFormData] = useState(initialStateRegister);    // es lo que voy a mandar en el body
 
     const [showPassword, setShowPassword] = useState(false);
     
@@ -33,9 +33,9 @@ export const Register = () => {
         }));
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event) => {     // asegurarme que el handleInputChange (controla el imput y envia eventos) mande todo bien a formdata 
         event.preventDefault()
-
+        console.log("hola soy el boton de submit")
         const urlBackend = import.meta.env.VITE_BACKEND_URL;
 
         const response = await fetch(`${urlBackend}/register`, {
@@ -43,11 +43,11 @@ export const Register = () => {
             headers:{
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(formData)
         })
 
         if (response.status === 201) {
-            setUser(initialStateRegister)
+            setFormData(initialStateRegister)
             setTimeout(() => {
                 navigate("/login")
             }, 2000)
@@ -126,7 +126,7 @@ export const Register = () => {
                                     </div>
 
                                     {/* Nombre del Huerto */}
-                                    <div className="mb-3">
+                                    {/*<div className="mb-3">
                                         <label htmlFor="farmName" className="form-label">Nombre del Campo</label>
                                         <div className="input-group">
                                             <input
@@ -143,10 +143,10 @@ export const Register = () => {
                                         <div className="invalid-feedback">
                                             Este campo es obligatorio.
                                         </div>
-                                    </div>
+                                    </div>*/}
 
                                     {/* Ubicación del Huerto */}
-                                    <div className="mb-3">
+                                    {/*<div className="mb-3">
                                         <label htmlFor="farmLocation" className="form-label">Ubicación del Campo</label>
                                         <div className="input-group">
                                             <input
@@ -163,7 +163,7 @@ export const Register = () => {
                                         <div className="invalid-feedback">
                                             Este campo es obligatorio.
                                         </div>
-                                    </div>
+                                    </div>*/}
 
                                     {/* Avatar */}
 
@@ -175,8 +175,8 @@ export const Register = () => {
                                             id="btnAvatar"
                                             placeholder="Cargar Imágen"
                                             name="avatar"
-                                            // onChange={handleInputChange}
-                                            // value={formData.avatar}
+                                            onChange={handleInputChange}
+                                            value={formData.avatar}
                                         />
                                     </div>
 
@@ -235,13 +235,13 @@ export const Register = () => {
                                     </div>
 
                                     {/* Aceptación de términos */}
-                                    <div class="mb-3">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required/>
-                                            <label class="form-check-label" for="invalidCheck">
+                                    <div className="mb-3">
+                                        <div className="form-check">
+                                            <input className="form-check-input" type="checkbox" value="" id="invalidCheck" required/>
+                                            <label className="form-check-label" htmlFor="invalidCheck">
                                                 Acepto los términos y condiciones.
                                             </label>
-                                            <div class="invalid-feedback">
+                                            <div className="invalid-feedback">
                                                 You must agree before submitting.
                                             </div>
                                         </div>
@@ -252,6 +252,7 @@ export const Register = () => {
                                         type="submit"
                                         className="btn btn-success w-100"
                                         disabled={isLoading}
+                                        onClick={() => setFormData()}
                                     >
                                         {isLoading ? 'Creando cuenta...' : 'Crear cuenta'}
                                     </button>

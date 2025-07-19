@@ -13,7 +13,7 @@ from api.commands import setup_commands
 from flask_cors import CORS
 from werkzeug.security import generate_password_hash, check_password_hash
 from base64 import b64encode
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
 from datetime import timedelta
 
 # from models import Person
@@ -23,6 +23,12 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../dist/')
 
 app = Flask(__name__)
+
+# jwt configuration. Must be after app = Flask(__name__)
+# setup jwt_extended to generate token
+# El token lo voy a generar en routes.py
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET_KEY")
+jwt = JWTManager(app)
 
 # CORS(app)
 

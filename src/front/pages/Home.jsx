@@ -69,7 +69,7 @@ export const Home = () => {
 					<div className="row d-flex justify-content-center align-items-center row-gap-3 " style={{ gridTemplateColumns: '1fr 1fr' }}>
 						
 						<button className="col-md-12 col-lg-4 d-flex align-content-center rounded-5 me-1 btn btn-white fw-bold border border-secondary-subtle">
-							<i class="fa-2x p-3 fas fa-tree" style={{color: "#11a736"}}></i> 
+							<i className="fa-2x p-3 fas fa-tree" style={{color: "#11a736"}}></i> 
 							<p className="m-auto">Detección de Deficiencias Nutricionales</p>
 						</button>
 
@@ -105,7 +105,7 @@ export const Home = () => {
 						</p>
 						<div>
 							<label htmlFor="btnUpload" className="form-label d-flex">
-								<i class="fs-4 m-2 fa-solid fa-cloud-arrow-up" style={{color: "#3fabfd"}}></i>
+								<i className="fs-4 m-2 fa-solid fa-cloud-arrow-up" style={{color: "#3fabfd"}}></i>
 								<h5 className="m-2">Subir Imagen</h5>
 							</label>
                             <input
@@ -144,7 +144,7 @@ export const Home = () => {
 							</div>
 
 							<div className="col-sm-6 col-md-12 text-center p-5 border rounded-4 shadow">
-								<i class="fa-2x fa-sharp fa-solid fa-magnifying-glass-chart" style={{color: "#075ae9"}}></i>
+								<i className="fa-2x fa-sharp fa-solid fa-magnifying-glass-chart" style={{color: "#075ae9"}}></i>
 								<h3>IA Avanzada</h3>
 								<p>
 									Algoritmos de aprendizaje automático detectan estrés en cultivos, enfermedades y patrones de crecimiento con alta precisión.
@@ -160,7 +160,7 @@ export const Home = () => {
 							</div>
 
 							<div className="col-sm-6 col-md-12 text-center p-5 border rounded-4 shadow">
-								<i class="fa-2x fa-sharp fa-solid fa-chart-area" style={{color: "#3a1b98"}}></i>
+								<i className="fa-2x fa-sharp fa-solid fa-chart-area" style={{color: "#3a1b98"}}></i>
 								<h3>Análisis de Tendencias</h3>
 								<p>
 									Monitorea el progreso de tus cultivos a lo largo del tiempo con reportes detallados y análisis comparativos.

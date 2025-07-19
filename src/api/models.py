@@ -16,7 +16,7 @@ class User(db.Model):
     password: Mapped[str] = mapped_column(String(200), nullable=False) 
     salt: Mapped[str] = mapped_column(String(80), nullable = False, default = 1 )
 
-    farm_of_user: Mapped["Farm"] = relationship(back_populates="farm_to_user")    # Mapped hace referencia a la clase con que me conecto
+    farm_of_user: Mapped[list["Farm"]] = relationship(back_populates="farm_to_user")    # Mapped hace referencia a la clase con que me conecto
 
     def serialize(self):
         return {
@@ -26,8 +26,7 @@ class User(db.Model):
             "email": self.email,
             "phone_number": self.phone_number,
             "avatar": self.avatar,
-            "salt": self.salt,     
-            # do not serialize the password, its a security breach
+            # do not serialize the password and salt, its a security breach
         }
     
 class Farm(db.Model):
@@ -37,7 +36,7 @@ class Farm(db.Model):
     farm_location: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     farm_name: Mapped[str] = mapped_column(String(100), unique=True, nullable=False)
     
-    farm_to_user: Mapped[list["User"]] = relationship(back_populates="farm_of_user")
+    farm_to_user: Mapped["User"] = relationship(back_populates="farm_of_user")
     ndvi_to_farm: Mapped[list["NDVI_images"]] = relationship(back_populates="ndvi_of_farm")
     aereal_to_farm: Mapped[list["Aereal_images"]] = relationship(back_populates="aereal_of_farm")
 
@@ -54,7 +53,7 @@ class NDVI_images(db.Model):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     farm_id: Mapped[int] = mapped_column(ForeignKey("farm.id"), nullable=False) 
-    farm_name: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+    # farm_name: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
     # farm_location: Mapped[str] = mapped_column(String(200), unique=True, nullable=False)
     ndvi_url: Mapped[str] = mapped_column(String(200), unique=True, nullable=False)
 
@@ -63,7 +62,7 @@ class NDVI_images(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "farm_id": self.farm_id,
+            # "farm_id": self.farm_id,
             "ndvi_url": self.ndvi_url    
         }
 
@@ -72,7 +71,7 @@ class Aereal_images(db.Model):
 
     id: Mapped[int] = mapped_column(primary_key=True)
     farm_id: Mapped[int] = mapped_column(ForeignKey("farm.id"), nullable=False)
-    farm_name: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
+    # farm_name: Mapped[str] = mapped_column(String(80), unique=True, nullable=False)
     # farm_location: Mapped[str] = mapped_column(String(200), unique=True, nullable=False)
     aereal_url: Mapped[str] = mapped_column(String(200), unique=True, nullable=False)
 
@@ -81,7 +80,7 @@ class Aereal_images(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "farm_id": self.farm_id,
+            # "farm_id": self.farm_id,
             "aereal_url": self.aereal_url,    
         }
     
