@@ -7,15 +7,13 @@ const initialStateRegister = {
     email: '',
     phone_number: '',
     password: '',
-    // farm_name: '',
-    // farm_location: '',
     avatar: '',
     acceptTerms: false,
 }
 
 export const Register = () => {
 
-    const {distpach, store} = useGlobalReducer()
+    const {dispatch, store} = useGlobalReducer()
 
     const navigate = useNavigate()
 
@@ -27,8 +25,8 @@ export const Register = () => {
 
     const handleInputChange = (event) => {
         const { name, value, type, checked } = event.target;
-        setFormData((formData) => ({
-            ...formData,
+        setFormData((currentFormData) => ({
+            ...currentFormData,
             [name]: type === 'checkbox' ? checked : value
         }));
     };
@@ -36,26 +34,6 @@ export const Register = () => {
     const handleSubmit = async (event) => {     // asegurarme que el handleInputChange (controla el imput y envia eventos) mande todo bien a formdata 
         event.preventDefault()
         console.log("hola soy el boton de submit")
-        const urlBackend = import.meta.env.VITE_BACKEND_URL;
-
-        const response = await fetch(`${urlBackend}/register`, {
-            method: "POST",
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-
-        if (response.status === 201) {
-            setFormData(initialStateRegister)
-            setTimeout(() => {
-                navigate("/login")
-            }, 2000)
-        } else if (response.status === 400) {
-            alert("El usuario ya existe")
-        } else {
-            alert("Error al registrar el usuario, intente nuevamente")
-        }
 
         if (!formData.acceptTerms) {
             alert('Debes aceptar los términos y condiciones');
@@ -63,10 +41,54 @@ export const Register = () => {
         }
 
         setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-            alert('Registrar');
-        }, 2000);
+
+        try {
+            console.log("Enviando datos de registro...");
+            const urlBackend = import.meta.env.VITE_BACKEND_URL;
+
+            // Preparar los datos (sin avatar por ahora para simplificar)
+            const dataToSend = {
+                full_name: formData.full_name,
+                email: formData.email,
+                phone_number: formData.phone_number,
+                password: formData.password,
+                avatar: formData.avatar || null // Por ahora enviar como string o null
+            };
+
+            console.log("URL Backend:", urlBackend);
+            console.log("Datos a enviar:", dataToSend);
+
+            const response = await fetch(`${urlBackend}/register`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataToSend)
+            });
+            
+            console.log("Response status:", response.status);
+
+            const responseData = await response.json();
+            console.log("Response data:", responseData);
+
+            if (response.status === 201) {
+                alert("Usuario registrado exitosamente. Redirigiendo al login...");
+                setFormData(initialStateRegister);
+                setTimeout(() => {
+                    navigate("/login");
+                }, 2000);
+            } else if (response.status === 400) {
+                alert(responseData.error || "El usuario ya existe o datos inválidos");
+            } else {
+                alert(responseData.error || "Error al registrar el usuario, intente nuevamente");
+            }
+
+            } catch (error) {
+                console.error("Error en la petición:", error);
+                alert("Error de conexión.");
+            } finally {
+                setIsLoading(false);
+            }
     }
 
     return (
@@ -100,9 +122,6 @@ export const Register = () => {
                                                 required
                                             />
                                         </div>
-                                        <div className="invalid-feedback">
-                                            Este campo es obligatorio.
-                                        </div>
                                     </div>
 
                                     {/* Teléfono */}
@@ -110,7 +129,7 @@ export const Register = () => {
                                         <label htmlFor="phone" className="form-label">Teléfono</label>
                                         <div className="input-group">
                                             <input
-                                                type="number"
+                                                type="tel"
                                                 className="form-control"
                                                 id="phone"
                                                 placeholder="56 9 1234 5678"
@@ -120,61 +139,25 @@ export const Register = () => {
                                                 required
                                             />
                                         </div>
-                                        <div className="invalid-feedback">
-                                            Este campo es obligatorio.
-                                        </div>
                                     </div>
-
-                                    {/* Nombre del Huerto */}
-                                    {/*<div className="mb-3">
-                                        <label htmlFor="farmName" className="form-label">Nombre del Campo</label>
-                                        <div className="input-group">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="farmName"
-                                                placeholder="Nombre del campo"
-                                                name="farm_name"
-                                                value={formData.farm_name}
-                                                onChange={handleInputChange}
-                                                required
-                                            />
-                                        </div>
-                                        <div className="invalid-feedback">
-                                            Este campo es obligatorio.
-                                        </div>
-                                    </div>*/}
-
-                                    {/* Ubicación del Huerto */}
-                                    {/*<div className="mb-3">
-                                        <label htmlFor="farmLocation" className="form-label">Ubicación del Campo</label>
-                                        <div className="input-group">
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                id="farmLocation"
-                                                placeholder="Ubicación del campo"
-                                                name="farm_location"
-                                                value={formData.farm_location}
-                                                onChange={handleInputChange}
-                                                required
-                                            />
-                                        </div>
-                                        <div className="invalid-feedback">
-                                            Este campo es obligatorio.
-                                        </div>
-                                    </div>*/}
 
                                     {/* Avatar */}
 
                                     <div className="form-group mb-3 ">
                                         <label htmlFor="btnAvatar" className="form-label">Imágen de Perfil:</label>
                                         <input
-                                            type="file"
+                                            type="text"
                                             className="form-control border-0"
                                             id="btnAvatar"
                                             placeholder="Cargar Imágen"
                                             name="avatar"
+                                            // onChange={(event) => {
+                                            //     const file = event.target.files[0];
+                                            //     setFormData(previousFormData => ({
+                                            //     ...previousFormData,
+                                            //     avatar: file,
+                                            //     }));
+                                            // }}
                                             onChange={handleInputChange}
                                             value={formData.avatar}
                                         />
@@ -197,9 +180,6 @@ export const Register = () => {
                                                 onChange={handleInputChange}
                                                 required
                                             />
-                                        </div>
-                                        <div className="invalid-feedback">
-                                            Este campo es obligatorio.
                                         </div>
                                     </div>
 
@@ -229,21 +209,23 @@ export const Register = () => {
                                                 <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
                                             </button>
                                         </div>
-                                        <div className="invalid-feedback">
-                                            Este campo es obligatorio.
-                                        </div>
                                     </div>
 
                                     {/* Aceptación de términos */}
                                     <div className="mb-3">
                                         <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" value="" id="invalidCheck" required/>
-                                            <label className="form-check-label" htmlFor="invalidCheck">
+                                            <input 
+                                                type="checkbox" 
+                                                className="form-check-input" 
+                                                id="acceptTerms"
+                                                name="acceptTerms"
+                                                checked={formData.acceptTerms}
+                                                onChange={handleInputChange}  
+                                                required
+                                            />
+                                            <label className="form-check-label" htmlFor="acceptTerms">
                                                 Acepto los términos y condiciones.
                                             </label>
-                                            <div className="invalid-feedback">
-                                                You must agree before submitting.
-                                            </div>
                                         </div>
                                     </div>
 
@@ -252,7 +234,6 @@ export const Register = () => {
                                         type="submit"
                                         className="btn btn-success w-100"
                                         disabled={isLoading}
-                                        onClick={() => setFormData()}
                                     >
                                         {isLoading ? 'Creando cuenta...' : 'Crear cuenta'}
                                     </button>

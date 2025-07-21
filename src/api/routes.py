@@ -44,49 +44,56 @@ def handle_check():
     return jsonify(response_body), 200
 
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
+# @api.route('/hello', methods=['POST', 'GET'])
+# def handle_hello():
 
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
+#     response_body = {
+#         "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
+#     }
 
-    return jsonify(response_body), 200
+#     return jsonify(response_body), 200
 
 
-@api.route('/signup', methods=['POST'])
+@api.route('/register', methods=['POST'])
 def add_user():
     data = request.json
+
+    print(data)
 
     full_name = data.get("full_name", None)
     email = data.get("email", None)
     phone_number = data.get("phone_number", None)
-    # farm_location = data.get("farm_location", None)
-    # farm_name = data.get("farm_name", None)
     avatar = data.get("avatar", None)
     password = data.get("password", None)
-    salt = data.get("salt", None) 
 
     # Creación del usuario:
-    if any(field is None for field in [full_name, email, phone_number, password]):
-        return jsonify('Fields full_name, email, phone_number, and password are mandatory'), 400
-    else:
+    if any(field is None or field == "" for field in [full_name, email, phone_number, password]):
+        return jsonify('Error: Fields full_name, email, phone_number, and password are mandatory'), 400
+
+    # Verificar si el usuario ya existe
+    existing_user = User.query.filter_by(email=email).one_or_none()
+    if existing_user:
+        return jsonify({"error": "User already exists"}), 400
+
+    try:
+        # Crear el salt antes de crear la contraseña
+        salt = b64encode(os.urandom(32)).decode("utf-8")
+
+        # Crear el usuario
         user = User()
         user.full_name = full_name
         user.email = email
-        # user.farm_name = farm_name
-        # user.farm_location = farm_location
         user.phone_number = phone_number
         user.avatar = avatar
-        user.password = create_password(password)
-        user.salt = b64encode(os.urandom(32)).decode("utf-8")
+        user.salt = salt
+        user.password = create_password(password, salt)
 
-    # Transacción a la BD:
-    db.session.add(user)
-
-    try:
+        # Transacción a la BD:
+        db.session.add(user)
         db.session.commit()
-        return jsonify("User created successfully"), 201
+
+        return jsonify({"message": "User created successfully"}), 201
+
     except Exception as error:
         db.session.rollback()
         return jsonify(f"Error: {error.args}"), 500
@@ -112,7 +119,7 @@ def handle_login():
                 return jsonify({
                     "token": token}), 200
             else:
-                return jsonify("Credentials failure"), 400
+                return jsonify("Credentials failure"), 401
 
 
 # @api.route("/users", methods=["GET"])
@@ -189,7 +196,7 @@ def update_password():
         except Exception as error:
             db.session.rollback()
             return jsonify(f"Error: {error.args}"), 500
-        
+
     else:
         return jsonify({"Error": "User not found"}), 404
 
@@ -217,10 +224,9 @@ def get_about_us():
 #         ), 404
 #     else:
 #         return(
-            
+
 #         )
 
-    
     return jsonify({
         # "message": {
         #     "mission": "Mediante el uso de Inteligencia Artificial...",
@@ -254,23 +260,23 @@ def get_about_us():
 #         except Exception as error:
 #             db.session.rollback()
 #             return jsonify(f"Error: {error.args}"), 500
-        
+
 #     else:
 #         return jsonify({"Error": "User not found"}), 404
 
 
-
-
-
-
 """[GET] /users Listar todos los registros de usuario en la base de datos."""
+
+
 @api.route('/users', methods=['GET'])
 def get_all_users():
 
     users = User.query.all()
     return jsonify([item.serialize() for item in users]), 200
 
+
 """[GET] /user/<int:user_id> Muestra la información de un solo usuario según su id."""
+
 
 @api.route('/user/<int:user_id>', methods=['GET'])
 # @jwt_required()
@@ -286,6 +292,7 @@ def get_user():
 
 "[GET] /ndvi Listar todos los registros de url NDVI en la base de datos."
 
+
 @api.route('/ndvi', methods=['GET'])
 def get_ndvi_images():
     all_ndvi = NDVI_images.query.all()
@@ -294,6 +301,7 @@ def get_ndvi_images():
 
 "[GET] /aereal Listar todos los registros de url aereos en la base de datos."
 
+
 @api.route('/aereal', methods=['GET'])
 def get_aereal_images():
     all_aereal = Aereal_images.query.all()
@@ -301,6 +309,7 @@ def get_aereal_images():
 
 
 "[GET] /user-ndvi/<int:user_id> Muestra la información ndvi de un solo usuario según su id."
+
 
 @api.route('/user-ndvi/<int:user_id>', methods=['GET'])
 def get_ndvi_per_user():
@@ -312,10 +321,12 @@ def get_ndvi_per_user():
     else:
         return jsonify(ndvi_per_user.serialize()), 200
 
+
 """Adicionalmente, necesitamos crear los siguientes endpoints para que podamos tener usuarios y favoritos en nuestro blog:
 """
 
 "[GET] /user-aereal/<int:user_id> Listar todas las imagenes aereas que pertenecen al usuario actual."
+
 
 @api.route('/user-aereal/<int:user_id>', methods=['GET'])
 def get_aereal_per_user():
@@ -327,8 +338,10 @@ def get_aereal_per_user():
     else:
         return jsonify(aereal_per_user.serialize()), 200
 
+
 """ [POST] /aereal_images/url_aereal/<int:user_id> Añade una nueva imagen aerea al usuario actual"""
-   
+
+
 @api.route('/user/<int:user_id>/aereal_images', methods=['POST'])
 def post_new_aereal(user_id):
     body = request.json
@@ -345,24 +358,24 @@ def post_new_aereal(user_id):
 
     if not all([farm_location, farm_name, aereal_url, user_id]):
         return jsonify({"error": "Missing required fields"}), 400
-    
+
     # Defino nuevo registro
-    
+
     new_aereal = Aereal_images(
-        farm_location = farm_location,
-        farm_name = farm_name,
-        aereal_url = aereal_url,
-        user_id = user_id  # clave foránea
+        farm_location=farm_location,
+        farm_name=farm_name,
+        aereal_url=aereal_url,
+        user_id=user_id  # clave foránea
     )
 
     try:
         db.session.add(new_aereal)
         db.session.commit()
         return jsonify({"message": "Aereal image added for successfully"}), 201
-    
+
     except Exception as error:
         db.session.rollback()
-        return jsonify({"error": str(error)}), 500   
+        return jsonify({"error": str(error)}), 500
 
 
 "[POST] /favorite/ndvi_image/<int:people_id> Añade un nuevo ndvi al usuario actual."
@@ -383,9 +396,9 @@ def post_new_aereal(user_id):
 
 #     if not all([farm_location, farm_name, ndvi_url, user_id]):
 #         return jsonify({"error": "Missing required fields"}), 400
-    
+
 #     # Defino nuevo registro
-    
+
 #     new_ndvi = NDVI_images(
 #         farm_location = farm_location,
 #         farm_name = farm_name,
@@ -397,19 +410,21 @@ def post_new_aereal(user_id):
 #         db.session.add(new_ndvi)
 #         db.session.commit()
 #         return jsonify({"message": "NDVI image added for successfully"}), 201
-    
+
 #     except Exception as error:
 #         db.session.rollback()
 #         return jsonify({"error": str(error)}), 500
-    
+
 
 "[DELETE] /favorite/planet/<int:planet_id> Elimina una imagen con el id = ndvi_images_id. de un usuario determinado"
+
 
 @api.route('/users/<int:user_id>/ndvi/<int:ndvi_images_id>', methods=['DELETE'])
 def delete_ndvi_image(user_id, ndvi_images_id):
 
     # Buscar la imagen y verificar que pertenezca al usuario
-    ndvi_to_delete = NDVI_images.query.filter_by(id = ndvi_images_id, user_id = user_id).first()
+    ndvi_to_delete = NDVI_images.query.filter_by(
+        id=ndvi_images_id, user_id=user_id).first()
 
     if not ndvi_to_delete:
         return jsonify({"error": "NDVI image not found for this user"}), 404
@@ -418,7 +433,7 @@ def delete_ndvi_image(user_id, ndvi_images_id):
         db.session.delete(ndvi_to_delete)
         db.session.commit()
         return jsonify({"message": "NDVI image deleted successfully"}), 200
-    
+
     except Exception as error:
         db.session.rollback()
         return jsonify({"error": str(error)}), 500
@@ -427,13 +442,13 @@ def delete_ndvi_image(user_id, ndvi_images_id):
 # @app.route('/ndvi_images/<int:ndvi_images_id>', methods=['DELETE'])
 # def delete_favorite_planet(planet_id):
 
-    
+
 #     favorite = .query.filter_by(planet_id=planet_id).first()
 
 #     if not favorite:
 #         return jsonify({"error": "Favorite planet not found"}), 404
 
-    
+
 #     db.session.delete(favorite)
 
 #     try:
@@ -448,13 +463,13 @@ def delete_ndvi_image(user_id, ndvi_images_id):
 # @app.route('/favorite/people/<int:people_id>', methods=['DELETE'])
 # def delete_favorite_people(people_id):
 
-    
+
 #     favorite = Favorite.query.filter_by(people_id = people_id).first()
 
 #     if not favorite:
 #         return jsonify({"error": "Favorite people not found"}), 404
 
-    
+
 #     db.session.delete(favorite)
 
 #     try:
@@ -463,7 +478,7 @@ def delete_ndvi_image(user_id, ndvi_images_id):
 #     except Exception as error:
 #         db.session.rollback()
 #         return jsonify({"error": str(error)}), 500
-    
+
 "[DELETE] /favorite/planet/<int:planet_id> Elimina una imagen con el id = aereal_images_id. de un usuario determinado"
 
 # @api.route('/users/<int:user_id>/ndvi/<int:aereal_images_id>', methods=['DELETE'])
@@ -479,7 +494,7 @@ def delete_ndvi_image(user_id, ndvi_images_id):
 #         db.session.delete(aereal_to_delete)
 #         db.session.commit()
 #         return jsonify({"message": "Aereal image deleted successfully"}), 200
-    
+
 #     except Exception as error:
 #         db.session.rollback()
 #         return jsonify({"error": str(error)}), 500

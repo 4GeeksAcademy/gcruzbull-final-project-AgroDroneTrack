@@ -29,6 +29,12 @@ export default function storeReducer(store, action = {}) {
 
       const { id,  color } = action.payload
 
+    // case 'set_dashboard':
+    //   return {
+    //     ...store,
+    //     message: action.payload
+    //   }
+
     case 'login':
       return {
         ...store,
@@ -50,4 +56,5 @@ export default function storeReducer(store, action = {}) {
       throw Error('Unknown action.');
   }    
 };
+
 

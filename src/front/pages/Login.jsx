@@ -59,6 +59,10 @@ export const Login = () => {
         }
     }
 
+    // useEffect(() => {
+    //         handleSubmit()
+    //     }, [])
+
     return (
         <div className="min-vh-100 d-flex align-items-center bg-light">
             <div className="container py-5">
