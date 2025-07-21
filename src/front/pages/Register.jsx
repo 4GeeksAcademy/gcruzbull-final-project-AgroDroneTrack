@@ -58,7 +58,7 @@ export const Register = () => {
             console.log("URL Backend:", urlBackend);
             console.log("Datos a enviar:", dataToSend);
 
-            const response = await fetch(`${urlBackend}/register`, {
+            const response = await fetch(`${urlBackend}/api/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
