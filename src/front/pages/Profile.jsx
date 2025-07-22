@@ -40,6 +40,8 @@ export const Profile = () => {
             avatar: profileForm.avatar || null // Por ahora enviar como string o null
         };
 
+        console.log("Datos a enviar:", bodyToSend);
+
         const urlBackend = import.meta.env.VITE_BACKEND_URL;
 
         const response = await fetch(`${urlBackend}/api/profile`, {
@@ -48,8 +50,24 @@ export const Profile = () => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(bodyToSend)
-        })
-    }
+        });
+
+        console.log("Response status es el siguiente:", response.status);
+
+        const responseBody = await response.json();
+            console.log("Response data:", responseBody);
+
+        if (response.status === 201) {
+            alert("Datos ingresados correctamente");
+            setProfileForm(initialProfileState);
+
+            console.log("operación exitosa")
+        } else {
+            alert(responseBody.error || "Problema al ingresar datos");
+        }
+
+        
+    };
 
     return (
 

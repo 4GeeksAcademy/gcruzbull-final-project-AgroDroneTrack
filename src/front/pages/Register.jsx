@@ -66,7 +66,7 @@ export const Register = () => {
                 body: JSON.stringify(dataToSend)
             });
             
-            console.log("Response status:", response.status);
+            console.log("Response status es el siguiente:", response.status);
 
             const responseData = await response.json();
             console.log("Response data:", responseData);
