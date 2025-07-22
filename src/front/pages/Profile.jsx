@@ -3,22 +3,11 @@ import useGlobalReducer from "../hooks/useGlobalReducer"
 import { Link, useNavigate } from "react-router-dom"
 import { Register } from "./Register"
 
-// const initialStateRegister = {
-//     fullName: '',
-//     phoneNumber: '',
-//     email:'',
-//     farm_name: '',
-//     farm_location: '',
-//     avatar: '',
-// }
-
 export const Profile = () => {
 
     const { distpach, store } = useGlobalReducer()
 
     const navigate = useNavigate()
-
-    // const [clientData, setClientData] = useState(initialStateRegister);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -26,19 +15,13 @@ export const Profile = () => {
 
         const urlBackend = import.meta.env.VITE_BACKEND_URL;
 
-        const response = await fetch(`${urlBackend}/profile`, {
+        const response = await fetch(`${urlBackend}/api/profile`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(user)
         })
-
-        // setIsLoading(true);
-        // setTimeout(() => {
-        //     setIsLoading(false);
-        //     alert('');
-        // }, 2000);
     }
 
     return (

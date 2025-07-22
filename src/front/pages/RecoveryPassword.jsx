@@ -17,7 +17,7 @@ export const RecoveryPassword =() =>{
 
         const urlbackend = import.meta.env.VITE_BACKEND_URL;
         
-        const response = await fetch(`${urlbackend}/reset-password`, {
+        const response = await fetch(`${urlbackend}/api/reset-password`, {
             method: "POST",
             headers:{
                 "Content-Type": "application/json"

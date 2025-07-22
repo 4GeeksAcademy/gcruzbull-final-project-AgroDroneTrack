@@ -32,7 +32,7 @@ export const Login = () => {
 
         const urlBackend = import.meta.env.VITE_BACKEND_URL;
 
-        const response = await fetch(`${urlBackend}/login`, {
+        const response = await fetch(`${urlBackend}/api/login`, {
             method: "POST",
             headers:{
                 "Content-Type": "application/json"
@@ -58,10 +58,6 @@ export const Login = () => {
             alert("Error al iniciar sesión, comunicate con soporte al cliente")
         }
     }
-
-    // useEffect(() => {
-    //         handleSubmit()
-    //     }, [])
 
     return (
         <div className="min-vh-100 d-flex align-items-center bg-light">

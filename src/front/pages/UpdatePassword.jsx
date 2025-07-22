@@ -22,7 +22,7 @@ export const UpdatePassword = () => {
 
         const urlbackend = import.meta.env.VITE_BACKEND_URL;
         
-        const response = await fetch(`${urlbackend}/update-password`, {
+        const response = await fetch(`${urlbackend}/api/update-password`, {
             method: "PUT",
             headers:{
                 "Authorization": `Bearer ${searchParams.get("token")}`,
