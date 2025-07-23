@@ -39,12 +39,12 @@ export const Navbar = () => {
 							</Link>
 						</li>
 						<li className="nav-item mx-3">
-							<Link to="/api/dashboard" className="nav-link text-dark fw-bold">
+							<Link to="/dashboard" className="nav-link text-dark fw-bold">
 								Dashboard
 							</Link>
 						</li>
 						<li className="nav-item mx-3">
-							<Link to="/api/about-us" className="nav-link text-dark fw-bold">
+							<Link to="/about-us" className="nav-link text-dark fw-bold">
 								Nosotros
 							</Link>
 						</li>
@@ -52,7 +52,7 @@ export const Navbar = () => {
 
 					{/* Botones de autenticación */}
 					<div className="d-flex align-items-center gap-2">
-						<Link to="/api/login" className="d-flex btn btn-outline-secondary me-3 my-3 p-1">
+						<Link to="/login" className="d-flex btn btn-outline-secondary me-3 my-3 p-1">
 							<span className="d-flex px-2 py-1">
 								<i className="fa-solid px-2 pt-1 fa-arrow-right-to-bracket"></i>
 								<p className="text-black fw-bold mb-0 pe-2">Ingresar</p>
@@ -62,7 +62,7 @@ export const Navbar = () => {
 							<Login size={16} />
 							<span>Ingresar</span>
 						</Link> */}
-						<Link to="/api/profile" className="d-flex btn btn-success ms-2 my-3 text-white align-content-center">
+						<Link to="/profile" className="d-flex btn btn-success ms-2 my-3 text-white align-content-center">
 							<span className="px-2 mb-1"><p className="fw-bold mb-0 pe-2">Perfil</p></span>
 						</Link>
 					</div>

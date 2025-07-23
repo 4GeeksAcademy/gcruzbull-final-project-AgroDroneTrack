@@ -44,7 +44,7 @@ export const Profile = () => {
 
         const urlBackend = import.meta.env.VITE_BACKEND_URL;
 
-        const response = await fetch(`${urlBackend}/api/profile`, {
+        const response = await fetch(`${urlBackend}/profile`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

@@ -12,7 +12,7 @@ export const Dashboard = () => {
         const urlBackend = import.meta.env.VITE_BACKEND_URL;
 
         try {
-            const response = await fetch(`${urlBackend}/api/dashboard`);
+            const response = await fetch(`${urlBackend}/dashboard`);
             const data = await response.json;
 
             if (response.ok) {

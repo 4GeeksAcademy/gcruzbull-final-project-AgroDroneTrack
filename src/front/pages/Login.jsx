@@ -53,7 +53,7 @@ export const Login = () => {
             })
             setTimeout(() => {
                 setIsLoading(false),
-                navigate("/api/profile")
+                navigate("/profile")
             }, 2000)
         } else if (response.status === 400) {
             alert("Credenciales incorrectas")

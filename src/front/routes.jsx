@@ -33,12 +33,12 @@ export const router = createBrowserRouter(
         <Route path="/single/:theId" element={ <Single />} />  {/* Dynamic route for single items */}
         <Route path="/demo" element={<Demo />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/api/recovery-password" element={<RecoveryPassword />} />
-        <Route path="/api/register" element={<Register />} />
-        <Route path="/api/update-password" element={<UpdatePassword />} />
-        <Route path="/api/about-us" element={<AboutUs />} />
-        <Route path="/api/dashboard" element={<Dashboard />} />
-        <Route path="/api/profile" element={<Profile />} />
+        <Route path="/recovery-password" element={<RecoveryPassword />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/update-password" element={<UpdatePassword />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
     )
 );
