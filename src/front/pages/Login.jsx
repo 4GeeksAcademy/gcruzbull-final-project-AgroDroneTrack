@@ -1,6 +1,6 @@
 import {useState} from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer"
-import {Link, useNavigate} from "react-router-dom"
+import { useSearchParams, Link, useNavigate} from "react-router-dom"
 
 
 const initialStateUser = {
@@ -14,6 +14,8 @@ export const Login = () => {
     const {dispatch, store} = useGlobalReducer()
 
     const navigate = useNavigate()
+
+    const [searchParams, _ ] = useSearchParams()
 
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -35,6 +37,7 @@ export const Login = () => {
         const response = await fetch(`${urlBackend}/api/login`, {
             method: "POST",
             headers:{
+                "Authorization": `Bearer ${searchParams.get("token")}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(userForm)

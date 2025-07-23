@@ -24,6 +24,8 @@ export default function storeReducer(store, action = {}) {
         ...store,
         message: action.payload
       };
+
+    
       
     case 'add_task':
 
