@@ -75,7 +75,7 @@ export const Register = () => {
                 alert("Usuario registrado exitosamente. Redirigiendo al login...");
                 setFormData(initialStateRegister);
                 setTimeout(() => {
-                    navigate("/login");
+                    navigate("/api/login");
                 }, 2000);
             } else if (response.status === 400) {
                 alert(responseData.error || "El usuario ya existe o datos inválidos");

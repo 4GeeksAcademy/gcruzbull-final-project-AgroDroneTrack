@@ -25,17 +25,23 @@ export default function storeReducer(store, action = {}) {
         message: action.payload
       };
 
-    
-      
-    case 'add_task':
+    case 'set_about':
 
-      const { id,  color } = action.payload
+      const about = action.payload
 
-    case 'set_dashboard':
       return {
         ...store,
-        message: action.payload
-      }
+        about: about      // mantengo todo pero cambio about en blanco (lo de arriba)(el de azul son los datos que vienen)
+      };
+
+    case 'set_dashboard':
+
+      const dashboard = action.payload
+
+      return {
+        ...store,
+        planets: dashboard
+      };
 
     case 'login':
       return {

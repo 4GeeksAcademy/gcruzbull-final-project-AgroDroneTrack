@@ -54,7 +54,7 @@ def handle_hello():
     return jsonify(response_body), 200
 
 
-@api.route('/register', methods=['POST'])
+@api.route('/api/register', methods=['POST'])
 def add_user():
     data = request.json
 
@@ -99,7 +99,7 @@ def add_user():
         return jsonify(f"Error: {error.args}"), 500
 
 
-@api.route('/login', methods=['POST'])      # agregar jwt autentification
+@api.route('/api/login', methods=['POST'])      # agregar jwt autentification
 def handle_login():
     data = request.json
     email = data.get("email", None)
@@ -138,10 +138,10 @@ def one_user_login():
     if user is None:
         return jsonify("User not found"), 404
     else:
-        return jsonify(user.serialize())
+        return jsonify(user.serialize()), 200
 
 
-@api.route("/reset-password", methods=["POST"])
+@api.route("/api/reset-password", methods=["POST"])
 def reset_password_user():
     body = request.json
 
@@ -171,7 +171,7 @@ def reset_password_user():
         return jsonify("Error"), 400
 
 
-@api.route("/update-password", methods=["PUT"])
+@api.route("/api/update-password", methods=["PUT"])
 @jwt_required()
 def update_password():
     user_id = get_jwt_identity()
@@ -201,7 +201,7 @@ def update_password():
         return jsonify({"Error": "User not found"}), 404
 
 
-@api.route('/about-us', methods=['GET'])
+@api.route('/api/about-us', methods=['GET'])
 def get_about_us():
     return jsonify({
         "message": {
@@ -227,7 +227,7 @@ def get_about_us():
 
 #         ), 200
 
-@api.route('/dashboard', methods=['GET'])
+@api.route('/api/dashboard', methods=['GET'])
 def get_dashboard():
     user_id = get_jwt_identity()
     body = request.get_json()
@@ -240,8 +240,8 @@ def get_dashboard():
             {"Error": "User not found"}
         ), 404
     else:
-        return(
-            'message': 'Bienvenido a tu dashboard de Agrovision IA! Acá podras ver el análisis del historial de tu huerto, reportes guardados, y configuraciones de cuenta'
+        return jsonify(
+            {'message': 'Bienvenido a tu dashboard de Agrovision IA! Acá podras ver el análisis del historial de tu huerto, reportes guardados, y configuraciones de cuenta'}
         ), 200
 
 # @api.route("/update-password", methods=["PUT"])
@@ -276,7 +276,7 @@ def get_dashboard():
 
 """[GET] /users Listar todos los registros de usuario en la base de datos."""
 
-@api.route('/users', methods=['GET'])
+@api.route('/api/users', methods=['GET'])
 def get_all_users():
     users = User.query.all()
     return jsonify([item.serialize() for item in users]), 200

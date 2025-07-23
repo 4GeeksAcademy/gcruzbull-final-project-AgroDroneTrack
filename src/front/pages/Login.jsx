@@ -37,7 +37,7 @@ export const Login = () => {
         const response = await fetch(`${urlBackend}/api/login`, {
             method: "POST",
             headers:{
-                "Authorization": `Bearer ${searchParams.get("token")}`,
+                // "Authorization": `Bearer ${searchParams.get("token")}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(userForm)
@@ -53,7 +53,7 @@ export const Login = () => {
             })
             setTimeout(() => {
                 setIsLoading(false),
-                navigate("/profile")
+                navigate("/api/profile")
             }, 2000)
         } else if (response.status === 400) {
             alert("Credenciales incorrectas")
