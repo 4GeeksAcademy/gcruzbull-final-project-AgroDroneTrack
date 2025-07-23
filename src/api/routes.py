@@ -30,8 +30,8 @@ def check_password(password_hash, password, salt):
 
 
 # Duración de vida del token
-expires_token = 20
-expires_delta = timedelta(minutes=expires_token)
+expires_token = 200
+expires_delta = timedelta(hours=expires_token)
 
 
 @api.route('/healt-check', methods=['GET'])
@@ -99,7 +99,7 @@ def add_user():
         return jsonify(f"Error: {error.args}"), 500
 
 
-@api.route('/login', methods=['POST'])
+@api.route('/login', methods=['POST'])      # agregar jwt autentification
 def handle_login():
     data = request.json
     email = data.get("email", None)
@@ -227,13 +227,13 @@ def get_about_us():
 
 #         )
 
-    return jsonify({
+    # return jsonify({
         # "message": {
         #     "mission": "Mediante el uso de Inteligencia Artificial...",
         #     "technology": "Nuestra plataforma utiliza algoritmos...",
         #     "history": "AgriVision AI nació con la visión..."
         # }
-    }), 200
+    # }), 200
 
 # @api.route("/update-password", methods=["PUT"])
 # @jwt_required()
@@ -267,22 +267,19 @@ def get_about_us():
 
 """[GET] /users Listar todos los registros de usuario en la base de datos."""
 
-
 @api.route('/users', methods=['GET'])
 def get_all_users():
-
     users = User.query.all()
     return jsonify([item.serialize() for item in users]), 200
 
 
 """[GET] /user/<int:user_id> Muestra la información de un solo usuario según su id."""
 
-
 @api.route('/user/<int:user_id>', methods=['GET'])
-# @jwt_required()
+@jwt_required()
 def get_user():
-    user_id = User.id
-    single_user = User.query.get(user_id)
+    user_id = get_jwt_identity()
+    single_user = User.query.get(user_id=user_id)
 
     if single_user is None:
         return jsonify({"error": "Person not found"}), 404
@@ -292,7 +289,6 @@ def get_user():
 
 "[GET] /ndvi Listar todos los registros de url NDVI en la base de datos."
 
-
 @api.route('/ndvi', methods=['GET'])
 def get_ndvi_images():
     all_ndvi = NDVI_images.query.all()
@@ -301,7 +297,6 @@ def get_ndvi_images():
 
 "[GET] /aereal Listar todos los registros de url aereos en la base de datos."
 
-
 @api.route('/aereal', methods=['GET'])
 def get_aereal_images():
     all_aereal = Aereal_images.query.all()
@@ -309,7 +304,6 @@ def get_aereal_images():
 
 
 "[GET] /user-ndvi/<int:user_id> Muestra la información ndvi de un solo usuario según su id."
-
 
 @api.route('/user-ndvi/<int:user_id>', methods=['GET'])
 def get_ndvi_per_user():
@@ -321,12 +315,7 @@ def get_ndvi_per_user():
     else:
         return jsonify(ndvi_per_user.serialize()), 200
 
-
-"""Adicionalmente, necesitamos crear los siguientes endpoints para que podamos tener usuarios y favoritos en nuestro blog:
-"""
-
 "[GET] /user-aereal/<int:user_id> Listar todas las imagenes aereas que pertenecen al usuario actual."
-
 
 @api.route('/user-aereal/<int:user_id>', methods=['GET'])
 def get_aereal_per_user():
@@ -341,10 +330,16 @@ def get_aereal_per_user():
 
 """ [POST] /aereal_images/url_aereal/<int:user_id> Añade una nueva imagen aerea al usuario actual"""
 
-
 @api.route('/user/<int:user_id>/aereal_images', methods=['POST'])
 def post_new_aereal(user_id):
     body = request.json
+
+    farm_location = Farm.farm_location
+    farm_name = Farm.farm_name
+
+    aereal_farm_location = Farm.query.get(farm_location)
+    aereal_farm_name = Farm.query.get(farm_name)
+    aereal_url = body.get("aereal_url")
 
     farm_location = body.get("farm_location")
     farm_name = body.get("farm_name")
@@ -418,7 +413,6 @@ def post_new_aereal(user_id):
 
 "[DELETE] /favorite/planet/<int:planet_id> Elimina una imagen con el id = ndvi_images_id. de un usuario determinado"
 
-
 @api.route('/users/<int:user_id>/ndvi/<int:ndvi_images_id>', methods=['DELETE'])
 def delete_ndvi_image(user_id, ndvi_images_id):
 
@@ -479,7 +473,7 @@ def delete_ndvi_image(user_id, ndvi_images_id):
 #         db.session.rollback()
 #         return jsonify({"error": str(error)}), 500
 
-"[DELETE] /favorite/planet/<int:planet_id> Elimina una imagen con el id = aereal_images_id. de un usuario determinado"
+"[DELETE] Elimina una imagen con el id = aereal_images_id. de un usuario determinado"
 
 # @api.route('/users/<int:user_id>/ndvi/<int:aereal_images_id>', methods=['DELETE'])
 # def delete_ndvi_image(user_id, aereal_images_id):

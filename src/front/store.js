@@ -29,11 +29,11 @@ export default function storeReducer(store, action = {}) {
 
       const { id,  color } = action.payload
 
-    // case 'set_dashboard':
-    //   return {
-    //     ...store,
-    //     message: action.payload
-    //   }
+    case 'set_dashboard':
+      return {
+        ...store,
+        message: action.payload
+      }
 
     case 'login':
       return {
@@ -46,11 +46,6 @@ export default function storeReducer(store, action = {}) {
         ...store,
         token: localStorage.getItem("token") || null,
       };
-
-      // return {
-      //   ...store,
-      //   todos: store.todos.map((todo) => (todo.id === id ? { ...todo, background: color } : todo))
-      // };
 
     default:
       throw Error('Unknown action.');
