@@ -212,7 +212,7 @@ def get_about_us():
     }), 200
 
 
-# @api.route('/dashboard', methods=['PUT'])
+# @api.route('/dashboard-put', methods=['PUT'])
 # def put_dashboard():
 #     user_id = get_jwt_identity()
 #     body = request.get_json()
@@ -225,15 +225,24 @@ def get_about_us():
 #     else:
 #         return(
 
-#         )
+#         ), 200
 
-    # return jsonify({
-        # "message": {
-        #     "mission": "Mediante el uso de Inteligencia Artificial...",
-        #     "technology": "Nuestra plataforma utiliza algoritmos...",
-        #     "history": "AgriVision AI nació con la visión..."
-        # }
-    # }), 200
+@api.route('/dashboard', methods=['GET'])
+def get_dashboard():
+    user_id = get_jwt_identity()
+    body = request.get_json()
+    # user = User.query.filter_by(user_id=user_id).one_or_none()
+
+    user = User.query.get(user_id)
+
+    if user is None:
+        return jsonify(
+            {"Error": "User not found"}
+        ), 404
+    else:
+        return(
+            'message': 'Bienvenido a tu dashboard de Agrovision IA! Acá podras ver el análisis del historial de tu huerto, reportes guardados, y configuraciones de cuenta'
+        ), 200
 
 # @api.route("/update-password", methods=["PUT"])
 # @jwt_required()
@@ -411,7 +420,7 @@ def post_new_aereal(user_id):
 #         return jsonify({"error": str(error)}), 500
 
 
-"[DELETE] /favorite/planet/<int:planet_id> Elimina una imagen con el id = ndvi_images_id. de un usuario determinado"
+"[DELETE] Elimina una imagen con el id = ndvi_images_id. de un usuario determinado"
 
 @api.route('/users/<int:user_id>/ndvi/<int:ndvi_images_id>', methods=['DELETE'])
 def delete_ndvi_image(user_id, ndvi_images_id):
