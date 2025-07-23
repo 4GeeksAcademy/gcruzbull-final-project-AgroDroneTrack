@@ -99,7 +99,7 @@ def add_user():
         return jsonify(f"Error: {error.args}"), 500
 
 
-@api.route('/api/login', methods=['POST'])      # agregar jwt autentification
+@api.route('/login', methods=['POST'])      # agregar jwt autentification
 def handle_login():
     data = request.json
     email = data.get("email", None)
