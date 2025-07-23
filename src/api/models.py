@@ -21,8 +21,8 @@ class User(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "farm_id": self.farm_id,
-            "full_name": self.first_name,
+            # "farm_id": self.farm_id,
+            "full_name": self.full_name,
             "email": self.email,
             "phone_number": self.phone_number,
             "avatar": self.avatar,

@@ -146,7 +146,7 @@ export const Register = () => {
                                     <div className="form-group mb-3 ">
                                         <label htmlFor="btnAvatar" className="form-label">Imágen de Perfil:</label>
                                         <input
-                                            type="text"
+                                            type="file"
                                             className="form-control border-0"
                                             id="btnAvatar"
                                             placeholder="Cargar Imágen"
