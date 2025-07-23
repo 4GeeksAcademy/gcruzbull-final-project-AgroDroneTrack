@@ -13,7 +13,7 @@ export const Dashboard = () => {
 
         try {
             const response = await fetch(`${urlBackend}/api/dashboard`);
-            const data = await response.json();
+            const data = await response.json;
 
             if (response.ok) {
                 dispatch({ type: "set_dashboard", payload: data.message });

@@ -13,7 +13,7 @@ export const AboutUs = () => {
 
         try {
             const response = await fetch(`${urlBackend}/api/about-us`);
-            const data = await response.json();
+            const data = await response.json;
 
             if (response.ok) {
                 dispatch({ type: "set_about", payload: data.message });

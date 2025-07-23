@@ -54,7 +54,7 @@ export const Profile = () => {
 
         console.log("Response status es el siguiente:", response.status);
 
-        const responseBody = await response.json();
+        const responseBody = await response.json;
             console.log("Response data:", responseBody);
 
         if (response.status === 201) {

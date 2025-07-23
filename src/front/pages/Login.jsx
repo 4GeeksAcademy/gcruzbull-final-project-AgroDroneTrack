@@ -43,7 +43,7 @@ export const Login = () => {
             body: JSON.stringify(userForm)
         })
 
-        const data = await response.json()
+        const data = await response.json
 
         if (response.ok){
             localStorage.setItem("token", data.token)
