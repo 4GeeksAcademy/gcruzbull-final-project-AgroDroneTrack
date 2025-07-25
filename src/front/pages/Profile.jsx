@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer"
 import { Link, useNavigate } from "react-router-dom"
 
@@ -13,61 +13,58 @@ const initialProfileState = {
 
 export const Profile = () => {
 
-    const { distpach, store } = useGlobalReducer()
+    const { dispatch, store } = useGlobalReducer()
 
     const navigate = useNavigate()
 
     const [profileForm, setProfileForm] = useState(initialProfileState);
 
-    const [isLoading, setIsLoading] = useState(false);
+    // const [isLoading, setIsLoading] = useState(false);
 
     const handleInputChange = ({ target }) => {
         setProfileForm({
             ...profileForm,
             [target.name]: target.value
         })
-    }
+    };
 
-    const profileData = async () => {
 
-        // Preparar los datos (sin avatar por ahora para simplificar)
-        const bodyToSend = {
-            full_name: profileForm.full_name,
-            email: profileForm.email,
-            phone_number: profileForm.phone_number,
-            farm_location: profileForm.farm_location,
-            farm_name: profileForm.farm_name,
-            avatar: profileForm.avatar || null // Por ahora enviar como string o null
-        };
+    const fetchUserProfile = async () => {
+        const token = localStorage.getItem("token"); // o donde guardes tu JWT
 
-        console.log("Datos a enviar:", bodyToSend);
-
-        const urlBackend = import.meta.env.VITE_BACKEND_URL;
-
-        const response = await fetch(`${urlBackend}/profile`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(bodyToSend)
-        });
-
-        console.log("Response status es el siguiente:", response.status);
-
-        const responseBody = await response.json;
-            console.log("Response data:", responseBody);
-
-        if (response.status === 201) {
-            alert("Datos ingresados correctamente");
-            setProfileForm(initialProfileState);
-
-            console.log("operación exitosa")
-        } else {
-            alert(responseBody.error || "Problema al ingresar datos");
+        if (!token) {
+            console.error("No hay token disponible");
+            return;
         }
 
-        
+        try {
+            const urlBackend = import.meta.env.VITE_BACKEND_URL;
+            const response = await fetch(`${urlBackend}/api/profile`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al obtener el perfil");
+            }
+
+            const data = await response.json();
+            console.log("✅ Datos del perfil:", data);
+
+            setProfileForm(data);  // esto llenará todos los campos
+
+        } catch (error) {
+            console.error("Error al conectarse con el backend:", error.message);
+        }
     };
+
+    useEffect(() => {
+        fetchUserProfile();
+    }, []);
+
 
     return (
 
@@ -77,12 +74,17 @@ export const Profile = () => {
                 {/* Avatar */}
                 <div className="col-sm-4 col-md-4" style={{ border: "1px solid red" }}>
                     <img
+                        src={profileForm.avatar || "https://avatar.iran.liara.run/public/4"}
+                        className="img-fluid rounded m-auto"
+                        alt="Imagen de Perfil"
+                    />
+                    {/*<img
                         src="https://avatar.iran.liara.run/public/4"
                         value={profileForm.avatar}
                         onChange={handleInputChange}
                         className="img-fluid rounded m-auto"
                         alt="Imagen de Perfil"
-                    />
+                    />*/}
                 </div>
 
                 {/* Datos personales */}

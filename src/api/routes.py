@@ -199,6 +199,25 @@ def update_password():
 
     else:
         return jsonify({"Error": "User not found"}), 404
+    
+
+@api.route('/profile', methods=['GET'])
+@jwt_required()
+def get_profile():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+
+    if not user:
+        return jsonify({"error": "Usuario no encontrado"}), 404
+
+    return jsonify({
+        "full_name": user.full_name,
+        "email": user.email,
+        "phone_number": user.phone_number,
+        "farm_location": user.farm_location,
+        "farm_name": user.farm_name,
+        "avatar": user.avatar
+    }), 200
 
 
 @api.route('/about-us', methods=['GET'])

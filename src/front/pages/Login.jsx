@@ -1,6 +1,6 @@
-import {useState} from "react"
+import { useState } from "react"
 import useGlobalReducer from "../hooks/useGlobalReducer"
-import { useSearchParams, Link, useNavigate} from "react-router-dom"
+import { useSearchParams, Link, useNavigate } from "react-router-dom"
 
 
 const initialStateUser = {
@@ -11,56 +11,68 @@ const initialStateUser = {
 
 export const Login = () => {
 
-    const {dispatch, store} = useGlobalReducer()
+    const { dispatch, store } = useGlobalReducer()
 
     const navigate = useNavigate()
 
-    const [searchParams, _ ] = useSearchParams()
+    const [searchParams, _] = useSearchParams()
 
     const [showPassword, setShowPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    
+
     const [userForm, setUserForm] = useState(initialStateUser)
 
-    const handleChange = ({target}) => {
+    const handleChange = ({ target }) => {
         setUserForm({
-            ... userForm,
+            ...userForm,
             [target.name]: target.value
         })
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setIsLoading(true); // Activar loading
 
-        const urlBackend = import.meta.env.VITE_BACKEND_URL;
+        try {
+            const urlBackend = import.meta.env.VITE_BACKEND_URL;
 
-        const response = await fetch(`${urlBackend}/api/login`, {
-            method: "POST",
-            headers:{
-                // "Authorization": `Bearer ${searchParams.get("token")}`,
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(userForm)
-        })
+            const response = await fetch(`${urlBackend}/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userForm)
+            });
 
-        const data = await response.json
+            const data = await response.json();
 
-        if (response.ok){
-            localStorage.setItem("token", data.token)
-            dispatch({
-                type: "login", 
-                payload: data.token
-            })
-            setTimeout(() => {
-                setIsLoading(false),
-                navigate("/profile")
-            }, 2000)
-        } else if (response.status === 400) {
-            alert("Credenciales incorrectas")
-        } else {
-            alert("Error al iniciar sesión, comunicate con soporte al cliente")
+            if (response.ok) {
+
+                console.log("Login exitoso, token recibido:", data.token); // Debug
+                localStorage.setItem("token", data.token);
+
+                dispatch({
+                    type: "login",
+                    payload: data.token
+                });
+
+                setTimeout(() => {
+                    setIsLoading(false),
+                    navigate("/profile")
+                }, 1000);
+
+            } else if (response.status === 400) {
+                alert("Credenciales incorrectas")
+            } else {
+                alert("Error al iniciar sesión, comunicate con soporte al cliente")
+            }
+        } catch (error) {
+            console.error("Error en login:", error);
+            alert("Error de conexión");
+        } finally {
+            setIsLoading(false); // Desactivar loading
         }
-    }
+    };
 
     return (
         <div className="min-vh-100 d-flex align-items-center bg-light">
@@ -166,4 +178,4 @@ export const Login = () => {
             </div>
         </div>
     );
-};
+    };

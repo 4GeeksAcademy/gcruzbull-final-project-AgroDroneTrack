@@ -12,8 +12,8 @@ export const AboutUs = () => {
         const urlBackend = import.meta.env.VITE_BACKEND_URL;
 
         try {
-            const response = await fetch(`${urlBackend}/about-us`);
-            const data = await response.json;
+            const response = await fetch(`${urlBackend}/api/about-us`);
+            const data = await response.json();
 
             if (response.ok) {
                 dispatch({ type: "set_about", payload: data.message });
