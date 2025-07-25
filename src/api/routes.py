@@ -249,7 +249,7 @@ def get_about_us():
 @api.route('/dashboard', methods=['GET'])
 def get_dashboard():
     user_id = get_jwt_identity()
-    body = request.get_json()
+    # body = request.get_json()
     # user = User.query.filter_by(user_id=user_id).one_or_none()
 
     user = User.query.get(user_id)
