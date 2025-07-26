@@ -205,7 +205,9 @@ def update_password():
 @jwt_required()
 def get_profile():
     current_user_id = get_jwt_identity()
-    user = User.query.get(current_user_id)
+    user = User.query.filter_by(email = current_user_id).first()
+    
+    # user = User.query.get(current_user_id)
 
     if not user:
         return jsonify({"error": "Usuario no encontrado"}), 404
@@ -247,6 +249,7 @@ def get_about_us():
 #         ), 200
 
 @api.route('/dashboard', methods=['GET'])
+@jwt_required()
 def get_dashboard():
     user_id = get_jwt_identity()
     # body = request.get_json()
@@ -315,7 +318,7 @@ def get_user():
         return jsonify(single_user.serialize()), 200
 
 
-"[GET] /ndvi Listar todos los registros de url NDVI en la base de datos."
+#"[GET] /ndvi Listar todos los registros de url NDVI en la base de datos."
 
 @api.route('/ndvi', methods=['GET'])
 def get_ndvi_images():

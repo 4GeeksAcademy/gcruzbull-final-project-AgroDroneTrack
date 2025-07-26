@@ -36,7 +36,7 @@ export const Login = () => {
         try {
             const urlBackend = import.meta.env.VITE_BACKEND_URL;
 
-            const response = await fetch(`${urlBackend}/login`, {
+            const response = await fetch(`${urlBackend}/api/login`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
